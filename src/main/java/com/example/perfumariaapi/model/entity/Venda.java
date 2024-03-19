@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,10 +16,16 @@ public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String data;
-    private String valorTotal;
+    private Date data;
+    private Double valorTotal;
     private String formaPagamento;
+
     @ManyToOne
     private Cupom cupom;
+
+    @ManyToOne
+    private Produto produto;
+
+
 
 }

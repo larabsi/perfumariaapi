@@ -1,7 +1,11 @@
 package com.example.perfumariaapi.api.dto;
+import com.example.perfumariaapi.model.entity.Classificacao;
+import com.example.perfumariaapi.model.entity.Funcionario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +25,12 @@ public class FuncionarioDTO {
     private String numeroTelefone;
     private String cargo;
     private String salario;
-    private Long idVendas;
+    private Long idVenda;
+
+
+    public static FuncionarioDTO create(Funcionario funcionario) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(funcionario, FuncionarioDTO.class);
+    }
+
 }

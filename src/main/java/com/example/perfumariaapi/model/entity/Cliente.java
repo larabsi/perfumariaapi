@@ -17,5 +17,5 @@ public class Cliente {
     private String numeroTelefone;
     private String dataNascimento;
     @ManyToOne
-    private Venda vendas;
+    private Venda venda;
 }

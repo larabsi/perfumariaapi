@@ -14,6 +14,8 @@ public class Perda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String data;
+
+
     @ManyToOne
     private Produto produto;
 

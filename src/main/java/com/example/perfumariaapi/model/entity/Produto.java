@@ -18,7 +18,6 @@ public class Produto {
     private Integer id;
     private String nome;
     private String codigoBarras;
-    @ManyToOne
-    private Perda perda;
+
 
 }

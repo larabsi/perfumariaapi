@@ -16,4 +16,10 @@ public class Pedido {
     private String valor;
     private String dataPedido;
     private String dataEntrega;
+
+    @ManyToOne
+    private Produto produto;
+
+    @ManyToOne
+    private Fornecedor fornecedor;
 }
