@@ -1,5 +1,5 @@
-package com.example.perfumariaapi.api.dto;
-import com.example.perfumariaapi.model.entity.Classificacao;
+package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ItemDTO;
 import com.example.perfumariaapi.model.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,16 +9,17 @@ import org.modelmapper.ModelMapper;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDTO {
+public class ItemController {
     private Long id;
     private Double quantidade;
     private Double valor;
     private Long idVendas;
     private Long idProduto;
 
-    public static ItemDTO create(Item item) {
+    public Item converter(ItemDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(item, ItemDTO.class);
-    }
+        Item item = modelMapper.map(dto, Item.class);
 
+        return item;
+    }
 }

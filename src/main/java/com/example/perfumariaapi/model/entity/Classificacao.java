@@ -17,7 +17,7 @@ public class Classificacao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String descricao;
-    private long idProduto;
+    private Long idProduto;
 
     @ManyToOne
     private Produto produto;

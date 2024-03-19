@@ -1,5 +1,6 @@
-package com.example.perfumariaapi.api.dto;
-import com.example.perfumariaapi.model.entity.Classificacao;
+package com.example.perfumariaapi.api.controller;
+
+import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.model.entity.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteDTO {
+public class ClienteController {
     private Long id;
     private String nome;
     private String cpf;
@@ -22,14 +23,10 @@ public class ClienteDTO {
     private Date data;
     private Double valor;
 
-
-
-    public static ClienteDTO create(Cliente cliente) {
+    public Cliente converter(ClienteDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);
-        //dto.data = cliente.getVendas().getData();
-        //dto.valor = cliente.getVendas().getValorTotal();
-        return dto;
-    }
+        Cliente cliente = modelMapper.map(dto, Cliente.class);
 
+        return cliente;
+    }
 }
