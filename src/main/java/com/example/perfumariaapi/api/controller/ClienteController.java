@@ -2,30 +2,35 @@ package com.example.perfumariaapi.api.controller;
 
 import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.model.entity.Cliente;
+import com.example.perfumariaapi.model.entity.Venda;
+import com.example.perfumariaapi.service.VendaService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.perfumariaapi.service.VendaService;
 import org.modelmapper.ModelMapper;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class ClienteController {
-    private Long id;
-    private String nome;
-    private String cpf;
-    private String email;
-    private String numeroTelefone;
-    private String dataNascimento;
-    private Long idVendas;
-    private Date data;
-    private Double valor;
+
+    private final VendaService service;
+
 
     public Cliente converter(ClienteDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(dto, Cliente.class);
+
+        if(dto.getIdVendas() !=0) {
+            Optional<Venda> vendas= VendaService.getVendaById(dto.getIdVendas());
+            if(!vendas.isPresent()){
+
+                cliente.setVenda(null);
+            } else{ cliente.setVenda(vendas.get());} }
+
+
 
         return cliente;
     }

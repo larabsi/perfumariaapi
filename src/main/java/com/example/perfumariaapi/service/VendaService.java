@@ -13,7 +13,7 @@ public class VendaService {
     public VendaService(VendaRepository vendaRepository) { this.repository = repository;}
     public List<Venda> getVendas(){ return repository.findAll();}
 
-    public Optional<Venda> getVendaById(Long id){ return repository.findById(id); }
+    public static Optional<Venda> getVendaById(Long id){ return repository.findById(id); }
 
 
 }

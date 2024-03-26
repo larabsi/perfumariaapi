@@ -26,7 +26,7 @@ public class ProdutoService {
         return repository.findAll();
     }
 
-    public Optional<Produto> getProdutoById(Long id) {
+    public static Optional<Produto> getProdutoById(Long id) {
         return repository.findById(id);
     }
 

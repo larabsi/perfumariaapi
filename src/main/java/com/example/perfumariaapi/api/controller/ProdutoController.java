@@ -12,9 +12,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProdutoController {
-    private Integer id;
-    private String nome;
-    private String codigoBarras;
+
 
     public Produto converter(ProdutoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();

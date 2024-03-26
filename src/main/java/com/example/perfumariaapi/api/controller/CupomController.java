@@ -10,10 +10,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CupomController {
-    private Long id;
-    private String desconto;
-    private Integer dataExpiracao;
-    private String codigo;
+
 
     public Cupom converter(CupomDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
