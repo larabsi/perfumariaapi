@@ -15,10 +15,7 @@ import java.util.Optional;
 @Data
 @AllArgsConstructor
 public class ClienteController {
-
     private final VendaService service;
-
-
     public Cliente converter(ClienteDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(dto, Cliente.class);

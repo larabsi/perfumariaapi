@@ -14,7 +14,7 @@ public class ClienteService {
     public ClienteService(ClienteRepository clienteRepository){this.repository = repository;}
     public List<Cliente> getCliente(){ return repository.findAll();}
 
-    public Optional<Cliente> getClienteById(Long id){ return repository.findById(id); }
+    public static Optional<Cliente> getClienteById(Long id){ return repository.findById(id); }
 
 
 }

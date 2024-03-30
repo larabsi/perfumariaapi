@@ -13,9 +13,7 @@ import java.util.Optional;
 @Data
 @AllArgsConstructor
 public class FraganciaController {
-
     private final ProdutoService service;
-
     public Fragrancia converter(FragranciaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);

@@ -14,7 +14,7 @@ public class FuncionarioService {
     public FuncionarioService(FuncionarioRepository funcionarioRepository){this.repository = repository;}
     public List<Funcionario> getFuncionario(){ return repository.findAll();}
 
-    public Optional<Funcionario> getFuncionarioById(Long id){ return repository.findById(id); }
+    public static Optional<Funcionario> getFuncionarioById(Long id){ return repository.findById(id); }
 
 
 }

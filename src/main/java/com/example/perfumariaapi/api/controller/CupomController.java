@@ -10,8 +10,6 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CupomController {
-
-
     public Cupom converter(CupomDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cupom cupom = modelMapper.map(dto, Cupom.class);

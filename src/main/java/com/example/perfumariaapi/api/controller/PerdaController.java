@@ -5,16 +5,12 @@ import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import java.util.Optional;
-
 @Data
 @AllArgsConstructor
 public class PerdaController {
     private final ProdutoService service;
-
     public Perda converter(PerdaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Perda perda = modelMapper.map(dto, Perda.class);

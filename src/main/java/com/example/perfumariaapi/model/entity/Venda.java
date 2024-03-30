@@ -1,4 +1,5 @@
 package com.example.perfumariaapi.model.entity;
+import com.example.perfumariaapi.service.FuncionarioService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,11 @@ public class Venda {
     @ManyToOne
     private Produto produto;
 
+    @ManyToOne
+    private Funcionario funcionario;
+
+    @ManyToOne
+    private Cliente cliente;
 
 
 }

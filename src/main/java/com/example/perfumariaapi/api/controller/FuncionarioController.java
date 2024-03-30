@@ -16,7 +16,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class FuncionarioController {
     private final VendaService service;
-
     public Funcionario converter(FuncionarioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Funcionario funcionario = modelMapper.map(dto, Funcionario.class);

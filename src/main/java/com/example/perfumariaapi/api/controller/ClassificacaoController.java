@@ -13,7 +13,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ClassificacaoController {
     private final ProdutoService service;
-
     public Classificacao converter(ClassificacaoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Classificacao classificacao = modelMapper.map(dto, Classificacao.class);

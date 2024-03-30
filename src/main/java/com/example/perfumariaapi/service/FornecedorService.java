@@ -20,7 +20,7 @@ public class FornecedorService {
         return repository.findAll();
     }
 
-    public Optional<Fornecedor> getFornecedorById(Long id) {
+    public static Optional<Fornecedor> getFornecedorById(Long id) {
         return repository.findById(id);
     }
 

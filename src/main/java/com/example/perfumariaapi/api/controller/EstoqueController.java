@@ -5,16 +5,12 @@ import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import java.util.Optional;
-
 @Data
 @AllArgsConstructor
 public class EstoqueController {
     private final ProdutoService service;
-
     public Estoque converter(EstoqueDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Estoque estoque = modelMapper.map(dto, Estoque.class);
