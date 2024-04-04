@@ -9,12 +9,12 @@ import java.util.Optional;
 
 @Service
 public class FuncionarioService {
-    private FuncionarioRepository repository;
+    private static FuncionarioRepository repository;
 
     public FuncionarioService(FuncionarioRepository funcionarioRepository){this.repository = repository;}
     public List<Funcionario> getFuncionario(){ return repository.findAll();}
 
-    public static Optional<Funcionario> getFuncionarioById(Long id){ return repository.findById(id); }
+    public Optional<Funcionario> getFuncionarioById(Long id){ return repository.findById(id); }
 
 
 }

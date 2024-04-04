@@ -3,18 +3,44 @@ import com.example.perfumariaapi.api.dto.TamanhoDTO;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.service.ProdutoService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.example.perfumariaapi.service.TamanhoService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
-@Data
-@AllArgsConstructor
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@RestController
+@RequestMapping("/api/v1/tamanhos")
+@RequiredArgsConstructor
+@CrossOrigin
+
 public class TamanhoController {
-    private final ProdutoService service;
+    private final TamanhoService service;
+   // private final ProdutoService produtoService;
+
+    @GetMapping()
+    public ResponseEntity get() {
+        List<Tamanho> tamanhos = service.getTamanho();
+        return ResponseEntity.ok(tamanhos.stream().map(TamanhoDTO::create).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity get(@PathVariable("id") Long id) {
+        Optional<Tamanho> tamanho = service.getTamanhoById(id);
+        if (!tamanho.isPresent()) {
+            return new ResponseEntity("Tamanho não encontrado", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(tamanho.map(TamanhoDTO::create));
+    }
     public Tamanho converter(TamanhoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Tamanho tamanho = modelMapper.map(dto, Tamanho.class);
-
 
         if(dto.getIdProduto() !=0) {
             Optional<Produto> produto= ProdutoService.getProdutoById(dto.getIdProduto());

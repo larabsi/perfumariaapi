@@ -1,21 +1,58 @@
 package com.example.perfumariaapi.api.controller;
 
 import com.example.perfumariaapi.api.dto.ClienteDTO;
+import com.example.perfumariaapi.api.dto.ProdutoDTO;
+import com.example.perfumariaapi.api.dto.VendaDTO;
+import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Cliente;
+import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.Venda;
+import com.example.perfumariaapi.service.ClienteService;
 import com.example.perfumariaapi.service.VendaService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import com.example.perfumariaapi.service.VendaService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-import java.util.Date;
-import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Data
-@AllArgsConstructor
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+
+@RestController
+@RequestMapping("/api/v1/clientes")
+@RequiredArgsConstructor
+@CrossOrigin
+
 public class ClienteController {
-    private final VendaService service;
+    private final ClienteService service;
+    // private final VendaService vendaService;
+
+    @GetMapping()
+    public ResponseEntity get() {
+        List<Cliente> clientes = service.getCliente();
+        return ResponseEntity.ok(clientes.stream().map(ClienteDTO::create).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity get(@PathVariable("id") Long id) {
+        Optional<Cliente> cliente = service.getClienteById(id);
+        if (!cliente.isPresent()) {
+            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(cliente.map(ClienteDTO::create));
+    }
+   /*  @GetMapping("{id}/vendas")
+    public ResponseEntity getVendas(@PathVariable("id") Long id) {
+        Optional<Cliente> cliente = service.getClienteById(id);
+        if (!cliente.isPresent()) {
+            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
+        }
+        List<Venda> vendas = vendaService.getProdutosByCliente(cliente);
+        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
+    } */
     public Cliente converter(ClienteDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(dto, Cliente.class);
@@ -26,8 +63,6 @@ public class ClienteController {
 
                 cliente.setVenda(null);
             } else{ cliente.setVenda(vendas.get());} }
-
-
 
         return cliente;
     }

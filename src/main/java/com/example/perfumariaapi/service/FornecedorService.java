@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class FornecedorService {
-    private FornecedorRepository repository;
+    private static FornecedorRepository repository;
 
     public FornecedorService(FornecedorRepository fornecedorRepository) {
         this.repository = repository;
@@ -20,7 +20,7 @@ public class FornecedorService {
         return repository.findAll();
     }
 
-    public static Optional<Fornecedor> getFornecedorById(Long id) {
+    public Optional<Fornecedor> getFornecedorById(Long id) {
         return repository.findById(id);
     }
 

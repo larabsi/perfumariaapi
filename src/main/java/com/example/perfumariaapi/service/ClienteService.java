@@ -9,12 +9,12 @@ import java.util.Optional;
 
 @Service
 public class ClienteService {
-    private ClienteRepository repository;
+    private static ClienteRepository repository;
 
     public ClienteService(ClienteRepository clienteRepository){this.repository = repository;}
     public List<Cliente> getCliente(){ return repository.findAll();}
 
-    public static Optional<Cliente> getClienteById(Long id){ return repository.findById(id); }
+    public Optional<Cliente> getClienteById(Long id){ return repository.findById(id); }
 
 
 }

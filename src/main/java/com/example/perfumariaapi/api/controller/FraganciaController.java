@@ -2,18 +2,41 @@ package com.example.perfumariaapi.api.controller;
 import com.example.perfumariaapi.api.dto.FragranciaDTO;
 import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
+import com.example.perfumariaapi.service.FragranciaService;
 import com.example.perfumariaapi.service.ProdutoService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Data
-@AllArgsConstructor
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@RestController
+@RequestMapping("/api/v1/fragrancias")
+@RequiredArgsConstructor
+@CrossOrigin
+
 public class FraganciaController {
-    private final ProdutoService service;
+    private final FragranciaService service;
+    //private final ProdutoService produtoService;
+    @GetMapping()
+    public ResponseEntity get() {
+        List<Fragrancia> fragrancias = service.getFragrancia();
+        return ResponseEntity.ok(fragrancias.stream().map(FragranciaDTO::create).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity get(@PathVariable("id") Long id) {
+        Optional<Fragrancia> fragrancia = service.getFragranciaById(id);
+        if (!fragrancia.isPresent()) {
+            return new ResponseEntity("Fragrancia não encontrada", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(fragrancia.map(FragranciaDTO::create));
+    }
     public Fragrancia converter(FragranciaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);

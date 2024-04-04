@@ -1,5 +1,6 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.repository.FragranciaRepository;
 import com.example.perfumariaapi.model.repository.ProdutoRepository;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Service
 public class ProdutoService {
 
-    private ProdutoRepository repository;
+    private static ProdutoRepository repository;
 
     public ProdutoService(ProdutoRepository fragranciaRepository) {
         this.repository = repository;
@@ -26,9 +27,12 @@ public class ProdutoService {
         return repository.findAll();
     }
 
-    public static Optional<Produto> getProdutoById(Long id) {
+    public Optional<Produto> getProdutoById(Long id) {
         return repository.findById(id);
     }
 
 
+   /* public List<Produto> getProdutosByClassificacao(Optional<Classificacao> classificacao) {
+        return repository.findByClassificacao(classificacao);
+    } */
 }
