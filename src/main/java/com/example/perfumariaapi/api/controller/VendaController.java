@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 
 public class VendaController {
     private final VendaService service;
-    //private final ProdutoService produtoService;
-   // private final FuncionarioService funcionarioService;
-    //private final ClienteService clienteService;
+    private final ProdutoService produtoService;
+    private final FuncionarioService funcionarioService;
+    private final ClienteService clienteService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -46,14 +46,14 @@ public class VendaController {
         Venda venda = modelMapper.map(dto, Venda.class);
 
         if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto= ProdutoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 
                 venda.setProduto(null);
             } else{ venda.setProduto(produto.get());}
         }
         if(dto.getIdCliente() !=0) {
-            Optional<Cliente> cliente = ClienteService.getClienteById(dto.getIdCliente());
+            Optional<Cliente> cliente = clienteService.getClienteById(dto.getIdCliente());
             if(!cliente.isPresent()){
 
                 venda.setCliente(null);
@@ -61,7 +61,7 @@ public class VendaController {
         }
 
         if(dto.getIdFuncionario() !=0) {
-            Optional<Funcionario> funcionario = FuncionarioService.getFuncionarioById(dto.getIdFuncionario());
+            Optional<Funcionario> funcionario = funcionarioService.getFuncionarioById(dto.getIdFuncionario());
             if (!funcionario.isPresent()) {
                 venda.setProduto(null);
             } else {

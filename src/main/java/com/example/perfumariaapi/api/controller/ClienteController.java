@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class ClienteController {
     private final ClienteService service;
-    // private final VendaService vendaService;
+    private final VendaService vendaService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -58,7 +58,7 @@ public class ClienteController {
         Cliente cliente = modelMapper.map(dto, Cliente.class);
 
         if(dto.getIdVendas() !=0) {
-            Optional<Venda> vendas= VendaService.getVendaById(dto.getIdVendas());
+            Optional<Venda> vendas= vendaService.getVendaById(dto.getIdVendas());
             if(!vendas.isPresent()){
 
                 cliente.setVenda(null);

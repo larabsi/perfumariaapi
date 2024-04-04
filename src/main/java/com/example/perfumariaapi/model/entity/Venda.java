@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +17,7 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Date data;
-    private Double valorTotal;
+    private Double valor_total;
     private String formaPagamento;
 
     @ManyToOne

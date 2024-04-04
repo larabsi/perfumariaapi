@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @CrossOrigin
 public class ClassificacaoController {
-    // private final ProdutoService produtoService;
+     private final ProdutoService produtoService;
     private final ClassificacaoService service;
 
     public ResponseEntity get() {
@@ -50,10 +50,8 @@ public class ClassificacaoController {
     public Classificacao converter(ClassificacaoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Classificacao classificacao = modelMapper.map(dto, Classificacao.class);
-
-
         if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto=ProdutoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 
                 classificacao.setProduto(null);

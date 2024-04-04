@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class FraganciaController {
     private final FragranciaService service;
-    //private final ProdutoService produtoService;
+    private final ProdutoService produtoService;
     @GetMapping()
     public ResponseEntity get() {
         List<Fragrancia> fragrancias = service.getFragrancia();
@@ -42,7 +42,7 @@ public class FraganciaController {
         Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);
 
         if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto=ProdutoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 
                 fragrancia.setProduto(null);

@@ -19,7 +19,7 @@ public class ProdutoService {
 
     private static ProdutoRepository repository;
 
-    public ProdutoService(ProdutoRepository fragranciaRepository) {
+    public ProdutoService(ProdutoRepository produtoRepository) {
         this.repository = repository;
     }
 

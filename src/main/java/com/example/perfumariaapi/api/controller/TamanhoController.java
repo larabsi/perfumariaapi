@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class TamanhoController {
     private final TamanhoService service;
-   // private final ProdutoService produtoService;
+    private final ProdutoService produtoService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -43,7 +43,7 @@ public class TamanhoController {
         Tamanho tamanho = modelMapper.map(dto, Tamanho.class);
 
         if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto= ProdutoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 
                 tamanho.setProduto(null);

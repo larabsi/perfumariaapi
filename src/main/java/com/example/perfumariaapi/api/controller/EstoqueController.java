@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 public class EstoqueController {
     private final EstoqueService service;
-    // private final ProdutoService produtoService;
+    private final ProdutoService produtoService;
     @GetMapping()
     public ResponseEntity get() {
         List<Estoque> estoques = service.getEstoque();
@@ -48,7 +48,7 @@ public class EstoqueController {
         Estoque estoque = modelMapper.map(dto, Estoque.class);
 
         if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto=ProdutoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto = produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 
                 estoque.setProduto(null);

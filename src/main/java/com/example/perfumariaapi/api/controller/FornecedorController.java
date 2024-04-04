@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class FornecedorController {
     private final FornecedorService service;
-    //private final ProdutoService produtoService;
+    private final ProdutoService produtoService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -45,7 +45,7 @@ public class FornecedorController {
 
 
         if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto= ProdutoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 
                 fornecedor.setProduto(null);
