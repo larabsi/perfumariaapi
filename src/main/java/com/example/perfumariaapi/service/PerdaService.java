@@ -18,8 +18,8 @@ import java.util.Optional;
 public class PerdaService {
     private PerdaRepository repository;
 
-    public PerdaService(FragranciaRepository fragranciaRepository) {
-        this.repository = repository;
+    public PerdaService(PerdaRepository perdaRepository) {
+        this.repository = perdaRepository;
     }
 
     public List<Perda> getPerda() {

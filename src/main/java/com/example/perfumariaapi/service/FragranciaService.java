@@ -12,7 +12,7 @@ public class FragranciaService {
     private FragranciaRepository repository;
 
     public FragranciaService(FragranciaRepository fragranciaRepository) {
-        this.repository = repository;
+        this.repository = fragranciaRepository;
     }
 
     public List<Fragrancia> getFragrancia() {

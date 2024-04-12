@@ -12,7 +12,7 @@ public class EstoqueService {
 
     private EstoqueRepository repository;
 
-    public EstoqueService(EstoqueRepository estoqueRepository){this.repository = repository;}
+    public EstoqueService(EstoqueRepository estoqueRepository){this.repository = estoqueRepository;}
     public List<Estoque> getEstoque(){ return repository.findAll();}
 
     public Optional<Estoque> getEstoqueById(Long id){ return repository.findById(id); }

@@ -2,7 +2,7 @@ package com.example.perfumariaapi.api.controller;
 
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.model.entity.Produto;
-import com.example.perfumariaapi.service.ProdutoService;;
+import com.example.perfumariaapi.service.ProdutoService;
 import jakarta.persistence.Entity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

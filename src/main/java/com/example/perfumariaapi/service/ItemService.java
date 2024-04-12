@@ -17,7 +17,7 @@ public class ItemService{
     private ItemRepository repository;
 
     public ItemService(ItemRepository itemRepository) {
-        this.repository = repository;
+        this.repository = itemRepository;
     }
 
     public List<Item> getItem() {

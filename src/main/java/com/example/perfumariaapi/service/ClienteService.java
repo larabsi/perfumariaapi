@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ClienteService {
     private static ClienteRepository repository;
 
-    public ClienteService(ClienteRepository clienteRepository){this.repository = repository;}
+    public ClienteService(ClienteRepository clienteRepository){this.repository = clienteRepository;}
     public List<Cliente> getCliente(){ return repository.findAll();}
 
     public Optional<Cliente> getClienteById(Long id){ return repository.findById(id); }

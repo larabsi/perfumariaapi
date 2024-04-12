@@ -10,7 +10,7 @@ public class PedidoService {
 
     private PedidoRepository repository;
 
-    public PedidoService(PedidoRepository pedidoRepository){this.repository = repository;}
+    public PedidoService(PedidoRepository pedidoRepository){this.repository = pedidoRepository;}
     public List<Pedido> getPedido(){ return repository.findAll();}
 
     public Optional<Pedido> getPedidoById(Long id){ return repository.findById(id); }

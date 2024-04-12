@@ -7,7 +7,7 @@ import com.example.perfumariaapi.service.ClassificacaoService;
 import  com.example.perfumariaapi.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-
+import com.example.perfumariaapi.exception.RegraNegocioException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +24,7 @@ public class ClassificacaoController {
      private final ProdutoService produtoService;
     private final ClassificacaoService service;
 
+    @GetMapping
     public ResponseEntity get() {
         List<Classificacao> classificacoes = service.getClassificacao();
         return ResponseEntity.ok(classificacoes.stream().map(ClassificacaoDTO::create).collect(Collectors.toList()));
@@ -46,6 +47,17 @@ public class ClassificacaoController {
         List<Produto> produtos = produtoService.getProdutosByClassificacao(classificacao);
         return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
     }*/
+
+    @PostMapping()
+    public ResponseEntity post(ClassificacaoDTO dto) {
+        try {
+            Classificacao classificacao = converter(dto);
+            classificacao = service.salvar(classificacao);
+            return new ResponseEntity(classificacao, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     public Classificacao converter(ClassificacaoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();

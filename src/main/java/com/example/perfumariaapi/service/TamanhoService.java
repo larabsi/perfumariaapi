@@ -13,8 +13,8 @@ import java.util.Optional;
 public class TamanhoService {
     private TamanhoRepository repository;
 
-    public TamanhoService(FornecedorRepository tamanhoRepository) {
-        this.repository = repository;
+    public TamanhoService(TamanhoRepository tamanhoRepository) {
+        this.repository = tamanhoRepository;
     }
 
     public List<Tamanho> getTamanho() {

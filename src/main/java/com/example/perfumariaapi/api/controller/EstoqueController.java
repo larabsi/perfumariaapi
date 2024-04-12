@@ -6,7 +6,7 @@ import com.example.perfumariaapi.model.entity.Estoque;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.Venda;
 import com.example.perfumariaapi.service.EstoqueService;
-import com.example.perfumariaapi.service.ProdutoService;;
+import com.example.perfumariaapi.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;

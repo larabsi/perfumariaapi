@@ -20,7 +20,7 @@ public class ProdutoService {
     private static ProdutoRepository repository;
 
     public ProdutoService(ProdutoRepository produtoRepository) {
-        this.repository = repository;
+        this.repository = produtoRepository;
     }
 
     public List<Produto> getProduto() {

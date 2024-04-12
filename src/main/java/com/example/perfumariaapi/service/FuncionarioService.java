@@ -11,7 +11,7 @@ import java.util.Optional;
 public class FuncionarioService {
     private static FuncionarioRepository repository;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository){this.repository = repository;}
+    public FuncionarioService(FuncionarioRepository funcionarioRepository){this.repository = funcionarioRepository;}
     public List<Funcionario> getFuncionario(){ return repository.findAll();}
 
     public Optional<Funcionario> getFuncionarioById(Long id){ return repository.findById(id); }

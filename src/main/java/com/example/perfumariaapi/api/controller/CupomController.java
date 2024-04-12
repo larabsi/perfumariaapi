@@ -1,5 +1,8 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
 import com.example.perfumariaapi.api.dto.CupomDTO;
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.service.CupomService;
 import com.example.perfumariaapi.model.entity.Cupom;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +37,16 @@ public class CupomController {
         }
         return ResponseEntity.ok(cupom.map(CupomDTO::create));
     }
-
+    @PostMapping()
+    public ResponseEntity post(CupomDTO dto) {
+        try {
+            Cupom cupom = converter(dto);
+            cupom = service.salvar(cupom);
+            return new ResponseEntity(cupom, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     public Cupom converter(CupomDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cupom cupom = modelMapper.map(dto, Cupom.class);
