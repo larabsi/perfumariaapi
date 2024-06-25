@@ -10,7 +10,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoDTO {
-    private Integer id;
+    private Long id;
     private String valor;
     private String dataPedido;
     private String dataEntrega;

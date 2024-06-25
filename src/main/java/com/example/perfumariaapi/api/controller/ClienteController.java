@@ -1,12 +1,11 @@
 package com.example.perfumariaapi.api.controller;
 
 import com.example.perfumariaapi.api.dto.ClienteDTO;
+import com.example.perfumariaapi.api.dto.CupomDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
-import com.example.perfumariaapi.model.entity.Classificacao;
-import com.example.perfumariaapi.model.entity.Cliente;
-import com.example.perfumariaapi.model.entity.Produto;
-import com.example.perfumariaapi.model.entity.Venda;
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.ClienteService;
 import com.example.perfumariaapi.service.VendaService;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +42,17 @@ public class ClienteController {
             return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(cliente.map(ClienteDTO::create));
+    }
+
+    @PostMapping()
+    public ResponseEntity post(ClienteDTO dto) {
+        try {
+            Cliente cliente = converter(dto);
+            cliente = service.salvar(cliente);
+            return new ResponseEntity(cliente, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
    /*  @GetMapping("{id}/vendas")
     public ResponseEntity getVendas(@PathVariable("id") Long id) {

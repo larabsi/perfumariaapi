@@ -1,9 +1,12 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Item;
 import com.example.perfumariaapi.model.repository.FragranciaRepository;
 import com.example.perfumariaapi.model.repository.ItemRepository;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +31,18 @@ public class ItemService{
         return repository.findById(id);
     }
 
+    @Transactional
+    public Item salvar(Item item){
+        validar(item);
+        return repository.save(item);
+
+    }
+    public void validar(Item item) {
+        if (item.getProduto()==null) {
+            throw new RegraNegocioException("Item inválido");
+        }
+
+
+    }
 
 }

@@ -1,6 +1,8 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.EstoqueDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
+import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Estoque;
 import com.example.perfumariaapi.model.entity.Produto;
@@ -41,6 +43,16 @@ public class EstoqueController {
             return new ResponseEntity("Estoque não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(estoque.map(EstoqueDTO::create));
+    }
+    @PostMapping()
+    public ResponseEntity post(EstoqueDTO dto) {
+        try {
+            Estoque estoque = converter(dto);
+            estoque = service.salvar(estoque);
+            return new ResponseEntity(estoque, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     public Estoque converter(EstoqueDTO dto) {

@@ -1,6 +1,5 @@
 package com.example.perfumariaapi.api.controller;
 import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
-import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.ClassificacaoService;

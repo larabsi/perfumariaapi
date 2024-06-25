@@ -1,10 +1,13 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Perda;
 import com.example.perfumariaapi.model.repository.FragranciaRepository;
 import com.example.perfumariaapi.model.repository.PerdaRepository;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,5 +31,19 @@ public class PerdaService {
 
     public Optional<Perda> getPerdaById(Long id) {
         return repository.findById(id);
+    }
+
+    @Transactional
+    public Perda salvar(Perda perda){
+        validar(perda);
+        return repository.save(perda);
+
+    }
+    public void validar(Perda perda) {
+        if ( perda.getProduto()==null) {
+            throw new RegraNegocioException("Perda inválida");
+        }
+
+
     }
 }

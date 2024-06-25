@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String valor;
     private String dataPedido;
     private String dataEntrega;

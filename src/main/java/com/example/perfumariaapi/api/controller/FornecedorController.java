@@ -1,5 +1,8 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.FornecedorDTO;
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Fornecedor;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.FornecedorService;
@@ -37,6 +40,16 @@ public class FornecedorController {
             return new ResponseEntity("Fornecedor não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(fornecedor.map(FornecedorDTO::create));
+    }
+    @PostMapping()
+    public ResponseEntity post(FornecedorDTO dto) {
+        try {
+            Fornecedor fornecedor = converter(dto);
+            fornecedor = service.salvar(fornecedor);
+            return new ResponseEntity(fornecedor, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     public Fornecedor converter(FornecedorDTO dto) {

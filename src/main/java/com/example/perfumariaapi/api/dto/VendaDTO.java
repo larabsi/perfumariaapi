@@ -1,5 +1,4 @@
 package com.example.perfumariaapi.api.dto;
-import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Venda;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +9,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VendaDTO {
-    private Integer id;
+    private Long id;
     private String data;
     private String valorTotal;
     private String formaPagamento;

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Tamanho {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String volume;
     @ManyToOne
     private Produto produto;

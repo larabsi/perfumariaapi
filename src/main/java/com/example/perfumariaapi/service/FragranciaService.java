@@ -1,7 +1,10 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cupom;
 import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.repository.FragranciaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,5 +26,18 @@ public class FragranciaService {
         return repository.findById(id);
     }
 
+    @Transactional
+    public Fragrancia salvar(Fragrancia fragrancia){
+        validar(fragrancia);
+        return repository.save(fragrancia);
+
+    }
+    public void validar(Fragrancia fragrancia) {
+        if (fragrancia.getDescricao() == null ) {
+            throw new RegraNegocioException("Fragrancia inválida");
+        }
+
+
+    }
 
 }

@@ -1,5 +1,4 @@
 package com.example.perfumariaapi.api.dto;
-import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Cupom;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +11,7 @@ import org.modelmapper.ModelMapper;
 public class CupomDTO {
     private Long id;
     private String desconto;
-    private Integer dataExpiracao;
+    private String dataExpiracao;
     private String codigo;
 
 

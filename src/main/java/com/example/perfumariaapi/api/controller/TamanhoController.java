@@ -1,5 +1,8 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.TamanhoDTO;
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.service.ProdutoService;
@@ -37,6 +40,16 @@ public class TamanhoController {
             return new ResponseEntity("Tamanho não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(tamanho.map(TamanhoDTO::create));
+    }
+    @PostMapping()
+    public ResponseEntity post(TamanhoDTO dto) {
+        try {
+            Tamanho tamanho = converter(dto);
+            tamanho = service.salvar(tamanho);
+            return new ResponseEntity(tamanho, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     public Tamanho converter(TamanhoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();

@@ -10,7 +10,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TamanhoDTO {
-    private Integer id;
+    private Long id;
     private String volume;
     private Long idProduto;
     private String nome;

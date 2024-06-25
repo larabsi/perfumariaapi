@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Fragrancia{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String descricao;
     @ManyToOne
     private Produto produto;

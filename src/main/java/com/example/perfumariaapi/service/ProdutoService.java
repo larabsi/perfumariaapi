@@ -1,18 +1,17 @@
 package com.example.perfumariaapi.service;
 
-import com.example.perfumariaapi.model.entity.Classificacao;
+import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Produto;
-import com.example.perfumariaapi.model.repository.FragranciaRepository;
 import com.example.perfumariaapi.model.repository.ProdutoRepository;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Objects;
+
 
 @Service
 public class ProdutoService {
@@ -32,6 +31,19 @@ public class ProdutoService {
     }
 
 
+    @Transactional
+    public Produto salvar(Produto produto){
+        validar(produto);
+        return repository.save(produto);
+
+    }
+    public void validar(Produto produto) {
+        if (produto.getNome()== null || produto.getNome().trim().equals("")) {
+            throw new RegraNegocioException("Produto inválido");
+        }
+
+
+    }
    /* public List<Produto> getProdutosByClassificacao(Optional<Classificacao> classificacao) {
         return repository.findByClassificacao(classificacao);
     } */

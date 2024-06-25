@@ -1,8 +1,11 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Fornecedor;
 import com.example.perfumariaapi.model.repository.FornecedorRepository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,4 +28,17 @@ public class FornecedorService {
     }
 
 
+    @Transactional
+    public Fornecedor salvar(Fornecedor fornecedor){
+        validar(fornecedor);
+        return repository.save(fornecedor);
+
+    }
+    public void validar(Fornecedor fornecedor) {
+        if (fornecedor.getCnpj()==null) {
+            throw new RegraNegocioException("Fornecedor inválido");
+        }
+
+
+    }
 }

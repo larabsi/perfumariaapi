@@ -10,7 +10,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProdutoDTO {
-    private Integer id;
+    private Long id;
     private String nome;
     private String codigoBarras;
 

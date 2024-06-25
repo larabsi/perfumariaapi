@@ -1,9 +1,12 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.model.repository.FornecedorRepository;
 
 import com.example.perfumariaapi.model.repository.TamanhoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +29,17 @@ public class TamanhoService {
     }
 
 
+    @Transactional
+    public Tamanho salvar(Tamanho tamanho){
+        validar(tamanho);
+        return repository.save(tamanho);
+
+    }
+    public void validar(Tamanho tamanho) {
+        if (tamanho.getProduto()==null) {
+            throw new RegraNegocioException("Tamanho inválido");
+        }
+
+
+    }
 }

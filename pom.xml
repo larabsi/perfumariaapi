@@ -12,7 +12,7 @@
 	<artifactId>perfumariaapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>perfumariaapi</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Back-end para sistema de perfumaria</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

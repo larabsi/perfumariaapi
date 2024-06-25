@@ -1,7 +1,10 @@
 package com.example.perfumariaapi.service;
 
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Estoque;
 import com.example.perfumariaapi.model.repository.EstoqueRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,19 @@ public class EstoqueService {
     public List<Estoque> getEstoque(){ return repository.findAll();}
 
     public Optional<Estoque> getEstoqueById(Long id){ return repository.findById(id); }
+    @Transactional
+    public Estoque salvar(Estoque estoque){
+        validar(estoque);
+        return repository.save(estoque);
 
+
+    }
+    public void validar(Estoque estoque) {
+        if (estoque.getProduto()==null) {
+            throw new RegraNegocioException("Estoque inválido");
+        }
+
+
+    }
 
 }

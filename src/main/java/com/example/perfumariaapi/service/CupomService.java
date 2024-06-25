@@ -1,24 +1,30 @@
 package com.example.perfumariaapi.service;
 
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Classificacao;
-import com.example.perfumariaapi.model.entity.Cupom;
+import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.model.repository.CupomRepository;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class CupomService {
     private CupomRepository repository;
 
-    public CupomService(CupomRepository cupomRepository){this.repository = cupomRepository;}
-    public List<Cupom> getCupom(){ return repository.findAll();}
+    public CupomService(CupomRepository repository)
+    {this.repository = repository;
+    }
+    public List<Cupom> getCupons(){
+        return repository.findAll();
+    }
 
-    public Optional<Cupom> getCupomById(Long id){ return repository.findById(id); }
+    public Optional<Cupom> getCupomById(Long id){
+        return repository.findById(id);
+    }
 
     @Transactional
     public Cupom salvar(Cupom cupom){

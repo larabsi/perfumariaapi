@@ -1,8 +1,6 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
 import com.example.perfumariaapi.api.dto.CupomDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.service.CupomService;
 import com.example.perfumariaapi.model.entity.Cupom;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +17,18 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/cupons")
 @RequiredArgsConstructor
-@CrossOrigin
 public class CupomController {
     private final CupomService service;
+    public Cupom converter(CupomDTO dto) {
+        ModelMapper modelMapper = new ModelMapper();
+        Cupom cupom = modelMapper.map(dto, Cupom.class);
+
+        return cupom;
+    }
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Cupom> cupons = service.getCupom();
+        List<Cupom> cupons = service.getCupons();
         return ResponseEntity.ok(cupons.stream().map(CupomDTO::create).collect(Collectors.toList()));
     }
 
@@ -47,10 +50,5 @@ public class CupomController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    public Cupom converter(CupomDTO dto) {
-        ModelMapper modelMapper = new ModelMapper();
-        Cupom cupom = modelMapper.map(dto, Cupom.class);
 
-        return cupom;
-    }
 }

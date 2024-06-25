@@ -1,6 +1,9 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.FragranciaDTO;
 import com.example.perfumariaapi.api.dto.FuncionarioDTO;
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Funcionario;
 import com.example.perfumariaapi.model.entity.Venda;
 import com.example.perfumariaapi.service.FuncionarioService;
@@ -39,6 +42,17 @@ public class FuncionarioController {
             return new ResponseEntity("Funcionário não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(funcionario.map(FuncionarioDTO::create));
+    }
+
+    @PostMapping()
+    public ResponseEntity post(FuncionarioDTO dto) {
+        try {
+            Funcionario funcionario = converter(dto);
+            funcionario = service.salvar(funcionario);
+            return new ResponseEntity(funcionario, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     public Funcionario converter(FuncionarioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();

@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FragranciaDTO {
-    private Integer id;
+    private Long id;
     private String descricao;
     private Long idProduto;
     private String nome;

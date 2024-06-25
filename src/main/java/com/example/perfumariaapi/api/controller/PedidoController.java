@@ -1,5 +1,8 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.PedidoDTO;
+import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Fornecedor;
 import com.example.perfumariaapi.model.entity.Pedido;
 import com.example.perfumariaapi.model.entity.Produto;
@@ -40,6 +43,16 @@ public class PedidoController {
             return new ResponseEntity("Pedido não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(pedido.map(PedidoDTO::create));
+    }
+    @PostMapping()
+    public ResponseEntity post(PedidoDTO dto) {
+        try {
+            Pedido pedido = converter(dto);
+            pedido = service.salvar(pedido);
+            return new ResponseEntity(pedido, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     public Pedido converter(PedidoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();

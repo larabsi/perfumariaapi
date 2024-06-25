@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PerdaDTO {
-    private Integer id;
+    private Long id;
     private String data;
     private Long idProduto;
 
