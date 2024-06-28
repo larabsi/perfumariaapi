@@ -12,7 +12,7 @@ public class FragranciaDTO {
     private Long id;
     private String descricao;
     private Long idProduto;
-    private String nome;
+    //private String nome;
 
     public static FragranciaDTO create(Fragrancia fragrancia) {
         ModelMapper modelMapper = new ModelMapper();

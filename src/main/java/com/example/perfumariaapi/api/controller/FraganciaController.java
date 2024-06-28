@@ -53,14 +53,14 @@ public class FraganciaController {
     public Fragrancia converter(FragranciaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);
-
         if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
-
                 fragrancia.setProduto(null);
-            } else{ fragrancia.setProduto(produto.get());} }
-
+            } else{
+                fragrancia.setProduto(produto.get());
+            }
+        }
         return fragrancia;
     }
 }
