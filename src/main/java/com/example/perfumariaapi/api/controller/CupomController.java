@@ -22,7 +22,6 @@ public class CupomController {
     public Cupom converter(CupomDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cupom cupom = modelMapper.map(dto, Cupom.class);
-
         return cupom;
     }
 

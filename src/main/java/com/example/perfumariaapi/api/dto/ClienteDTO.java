@@ -19,17 +19,13 @@ public class ClienteDTO {
     private String numeroTelefone;
     private String dataNascimento;
     private Long idVendas;
-    private Date data;
+    private String data;
     private Double valor;
-
-
-
     public static ClienteDTO create(Cliente cliente) {
         ModelMapper modelMapper = new ModelMapper();
         ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);
-        //dto.data = cliente.getVendas().getData();
-        //dto.valor = cliente.getVendas().getValorTotal();
+        //dto.data = cliente.getVenda().getData();
+        //dto.valor = cliente.getVenda().getValor_total();
         return dto;
     }
-
 }

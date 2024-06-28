@@ -17,7 +17,6 @@ public class PedidoDTO {
     private Long idProduto;      //Qual produto foi feito pedido
     private Long idFornecedor;  // De qual forncedor comprou
 
-
     public static PedidoDTO create(Pedido pedido) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(pedido, PedidoDTO.class);

@@ -20,5 +20,4 @@ public class TamanhoDTO {
         TamanhoDTO dto = modelMapper.map(tamanho, TamanhoDTO.class);
         return dto;
     }
-
 }

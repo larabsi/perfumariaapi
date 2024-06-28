@@ -54,7 +54,7 @@ public class FraganciaController {
         ModelMapper modelMapper = new ModelMapper();
         Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);
 
-        if(dto.getIdProduto() !=0) {
+        if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 

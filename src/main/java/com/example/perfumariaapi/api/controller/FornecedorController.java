@@ -57,7 +57,7 @@ public class FornecedorController {
         Fornecedor fornecedor = modelMapper.map(dto, Fornecedor.class);
 
 
-        if(dto.getIdProduto() !=0) {
+        if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 

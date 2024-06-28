@@ -24,7 +24,6 @@ public class FornecedorDTO {
     private String cep;
     private Long idProduto;
 
-
     public static FornecedorDTO create(Fornecedor fornecedor) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(fornecedor, FornecedorDTO.class);

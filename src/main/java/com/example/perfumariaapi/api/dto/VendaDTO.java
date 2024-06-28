@@ -18,11 +18,8 @@ public class VendaDTO {
     private Long idCliente;
     private Long idProduto;
 
-
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(venda, VendaDTO.class);
     }
-
-
 }

@@ -22,15 +22,11 @@ public class ClassificacaoService {
         public Classificacao salvar(Classificacao classificacao){
                 validar(classificacao);
                 return repository.save(classificacao);
-
-
-
         }
 
         public void validar(Classificacao classificacao) {
                 if (classificacao.getDescricao() == null || classificacao.getDescricao().trim().equals("")) {
                         throw new RegraNegocioException("Descrição inválida");
                 }
-
-
-}}
+        }
+}

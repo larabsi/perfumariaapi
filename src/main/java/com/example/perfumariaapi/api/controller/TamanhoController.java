@@ -55,7 +55,7 @@ public class TamanhoController {
         ModelMapper modelMapper = new ModelMapper();
         Tamanho tamanho = modelMapper.map(dto, Tamanho.class);
 
-        if(dto.getIdProduto() !=0) {
+        if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 

@@ -27,7 +27,6 @@ public class FuncionarioDTO {
     private String salario;
     private Long idVenda;
 
-
     public static FuncionarioDTO create(Funcionario funcionario) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(funcionario, FuncionarioDTO.class);

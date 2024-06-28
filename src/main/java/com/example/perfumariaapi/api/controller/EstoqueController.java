@@ -59,7 +59,7 @@ public class EstoqueController {
         ModelMapper modelMapper = new ModelMapper();
         Estoque estoque = modelMapper.map(dto, Estoque.class);
 
-        if(dto.getIdProduto() !=0) {
+        if(dto.getIdProduto() != null) {
             Optional<Produto> produto = produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 

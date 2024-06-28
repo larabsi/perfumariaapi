@@ -56,7 +56,7 @@ public class PerdaController {
         Perda perda = modelMapper.map(dto, Perda.class);
 
 
-        if(dto.getIdProduto() !=0) {
+        if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 

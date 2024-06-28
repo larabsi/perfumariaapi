@@ -61,7 +61,7 @@ public class ItemController {
         Item item = modelMapper.map(dto, Item.class);
 
 
-        if(dto.getIdProduto() !=0) {
+        if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
 

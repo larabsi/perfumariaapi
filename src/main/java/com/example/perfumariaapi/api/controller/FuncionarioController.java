@@ -58,7 +58,7 @@ public class FuncionarioController {
         ModelMapper modelMapper = new ModelMapper();
         Funcionario funcionario = modelMapper.map(dto, Funcionario.class);
 
-        if(dto.getIdVenda() !=0) {
+        if(dto.getIdVenda() != null) {
             Optional<Venda> vendas= vendaService.getVendaById(dto.getIdVenda());
             if(!vendas.isPresent()){
 

@@ -54,26 +54,22 @@ public class ClienteController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-   /*  @GetMapping("{id}/vendas")
-    public ResponseEntity getVendas(@PathVariable("id") Long id) {
-        Optional<Cliente> cliente = service.getClienteById(id);
-        if (!cliente.isPresent()) {
-            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
-        }
-        List<Venda> vendas = vendaService.getProdutosByCliente(cliente);
-        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
-    } */
+//    @GetMapping("{id}/vendas")
+//    public ResponseEntity getVendas(@PathVariable("id") Long id) {
+//        Optional<Cliente> cliente = service.getClienteById(id);
+//        if (!cliente.isPresent()) {
+//            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
+//        }
+//        List<Venda> vendas = vendaService.getProdutosByCliente(cliente);
+//        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
+//    }
     public Cliente converter(ClienteDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cliente cliente = modelMapper.map(dto, Cliente.class);
-
-        if(dto.getIdVendas() !=0) {
+        if(dto.getIdVendas () != null) {
             Optional<Venda> vendas= vendaService.getVendaById(dto.getIdVendas());
-            if(!vendas.isPresent()){
-
-                cliente.setVenda(null);
+            if(!vendas.isPresent()){ cliente.setVenda(null);
             } else{ cliente.setVenda(vendas.get());} }
-
         return cliente;
     }
 }

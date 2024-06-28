@@ -17,7 +17,6 @@ public class EstoqueDTO {
     private Integer pontoDeRessuprimento;
     private Long idProduto;  // Para identicar qual o produto do estoque
 
-
     public static EstoqueDTO create(Estoque estoque) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(estoque, EstoqueDTO.class);

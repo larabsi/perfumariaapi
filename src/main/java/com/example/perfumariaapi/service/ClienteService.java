@@ -23,14 +23,11 @@ public class ClienteService {
     public Cliente salvar(Cliente cliente){
         validar(cliente);
         return repository.save(cliente);
-
     }
     public void validar(Cliente cliente) {
-        if (cliente.getCpf()==null|| cliente.getCpf().trim().equals("")) {
+        if (cliente.getCpf()== null|| cliente.getCpf().trim().equals("")) {
             throw new RegraNegocioException("Cliente inválido");
         }
-
-
     }
 
 }

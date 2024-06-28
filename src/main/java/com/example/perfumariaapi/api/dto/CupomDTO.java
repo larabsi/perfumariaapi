@@ -14,7 +14,6 @@ public class CupomDTO {
     private String dataExpiracao;
     private String codigo;
 
-
     public static CupomDTO create(Cupom cupom) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(cupom, CupomDTO.class);
