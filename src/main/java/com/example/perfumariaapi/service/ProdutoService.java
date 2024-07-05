@@ -1,6 +1,7 @@
 package com.example.perfumariaapi.service;
 
 import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Estoque;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
@@ -22,7 +23,7 @@ public class ProdutoService {
         this.repository = produtoRepository;
     }
 
-    public List<Produto> getProduto() {
+    public List<Produto> getProdutos() {
         return repository.findAll();
     }
 
@@ -30,6 +31,9 @@ public class ProdutoService {
         return repository.findById(id);
     }
 
+    public List<Produto> getProdutosByEstoque(Optional<Estoque> estoque) {
+        return repository.findByEstoque(estoque);
+}
 
     @Transactional
     public Produto salvar(Produto produto){

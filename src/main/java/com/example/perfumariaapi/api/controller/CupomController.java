@@ -40,7 +40,7 @@ public class CupomController {
         return ResponseEntity.ok(cupom.map(CupomDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(CupomDTO dto) {
+    public ResponseEntity post(@RequestBody CupomDTO dto) {
         try {
             Cupom cupom = converter(dto);
             cupom = service.salvar(cupom);

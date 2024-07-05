@@ -1,8 +1,11 @@
 package com.example.perfumariaapi.model.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -20,4 +23,7 @@ public class Estoque {
 
     @ManyToOne
     private Produto produto;
+    @JsonIgnore
+    @OneToMany(mappedBy = "estoque")
+    private List<Produto> produtos;
 }

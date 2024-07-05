@@ -42,7 +42,7 @@ public class TamanhoController {
         return ResponseEntity.ok(tamanho.map(TamanhoDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(TamanhoDTO dto) {
+    public ResponseEntity post( @RequestBody TamanhoDTO dto) {
         try {
             Tamanho tamanho = converter(dto);
             tamanho = service.salvar(tamanho);

@@ -19,4 +19,7 @@ public class Produto {
     private String nome;
     private String codigoBarras;
 
+    @ManyToOne
+    private Estoque estoque;
+
 }

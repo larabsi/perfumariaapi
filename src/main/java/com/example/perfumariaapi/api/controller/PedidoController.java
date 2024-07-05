@@ -45,7 +45,7 @@ public class PedidoController {
         return ResponseEntity.ok(pedido.map(PedidoDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(PedidoDTO dto) {
+    public ResponseEntity post(@RequestBody PedidoDTO dto) {
         try {
             Pedido pedido = converter(dto);
             pedido = service.salvar(pedido);

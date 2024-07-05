@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @CrossOrigin
 public class ClassificacaoController {
-     private final ProdutoService produtoService;
+    private final ProdutoService produtoService;
     private final ClassificacaoService service;
 
     @GetMapping
@@ -49,7 +49,7 @@ public class ClassificacaoController {
 //    }
 
     @PostMapping()
-    public ResponseEntity post(ClassificacaoDTO dto) {
+    public ResponseEntity post(@RequestBody ClassificacaoDTO dto) {
         try {
             Classificacao classificacao = converter(dto);
             classificacao = service.salvar(classificacao);
@@ -59,7 +59,7 @@ public class ClassificacaoController {
         }
     }
 
-    public Classificacao converter(ClassificacaoDTO dto) {
+    public Classificacao converter(  ClassificacaoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Classificacao classificacao = modelMapper.map(dto, Classificacao.class);
         if(dto.getIdProduto() !=0) {

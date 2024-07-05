@@ -42,7 +42,7 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedor.map(FornecedorDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(FornecedorDTO dto) {
+    public ResponseEntity post( @RequestBody FornecedorDTO dto) {
         try {
             Fornecedor fornecedor = converter(dto);
             fornecedor = service.salvar(fornecedor);

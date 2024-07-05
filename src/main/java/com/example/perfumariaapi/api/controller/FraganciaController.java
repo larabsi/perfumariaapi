@@ -41,7 +41,7 @@ public class FraganciaController {
         return ResponseEntity.ok(fragrancia.map(FragranciaDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(FragranciaDTO dto) {
+    public ResponseEntity post(@RequestBody FragranciaDTO dto) {
         try {
             Fragrancia fragrancia = converter(dto);
             fragrancia = service.salvar(fragrancia);

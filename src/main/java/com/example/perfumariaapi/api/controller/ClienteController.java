@@ -45,7 +45,7 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity post(ClienteDTO dto) {
+    public ResponseEntity post(@RequestBody ClienteDTO dto) {
         try {
             Cliente cliente = converter(dto);
             cliente = service.salvar(cliente);
@@ -54,7 +54,7 @@ public class ClienteController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-//    @GetMapping("{id}/vendas")
+    //    @GetMapping("{id}/vendas")
 //    public ResponseEntity getVendas(@PathVariable("id") Long id) {
 //        Optional<Cliente> cliente = service.getClienteById(id);
 //        if (!cliente.isPresent()) {

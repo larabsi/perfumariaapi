@@ -47,7 +47,7 @@ public class ItemController {
     }
 
     @PostMapping()
-    public ResponseEntity post(ItemDTO dto) {
+    public ResponseEntity post(@RequestBody ItemDTO dto) {
         try {
             Item item = converter(dto);
             item = service.salvar(item);

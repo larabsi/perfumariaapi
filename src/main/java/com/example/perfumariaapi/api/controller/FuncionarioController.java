@@ -45,7 +45,7 @@ public class FuncionarioController {
     }
 
     @PostMapping()
-    public ResponseEntity post(FuncionarioDTO dto) {
+    public ResponseEntity post(@RequestBody FuncionarioDTO dto) {
         try {
             Funcionario funcionario = converter(dto);
             funcionario = service.salvar(funcionario);

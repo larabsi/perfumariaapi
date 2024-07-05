@@ -27,7 +27,7 @@ public class ProdutoController {
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Produto> produtos = service.getProduto();
+        List<Produto> produtos = service.getProdutos();
         return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
     }
 
@@ -40,7 +40,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produto.map(ProdutoDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(ProdutoDTO dto) {
+    public ResponseEntity post(@RequestBody ProdutoDTO dto) {
         try {
             Produto produto = converter(dto);
             produto = service.salvar(produto);

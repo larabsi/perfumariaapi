@@ -23,15 +23,11 @@ public class EstoqueService {
     public Estoque salvar(Estoque estoque){
         validar(estoque);
         return repository.save(estoque);
-
-
     }
     public void validar(Estoque estoque) {
         if (estoque.getProduto()==null) {
             throw new RegraNegocioException("Estoque inválido");
         }
-
-
     }
 
 }

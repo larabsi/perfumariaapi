@@ -42,7 +42,7 @@ public class PerdaController {
         return ResponseEntity.ok(perda.map(PerdaDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(PerdaDTO dto) {
+    public ResponseEntity post( @RequestBody PerdaDTO dto) {
         try {
             Perda perda = converter(dto);
             perda = service.salvar(perda);

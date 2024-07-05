@@ -44,7 +44,7 @@ public class VendaController {
         return ResponseEntity.ok(venda.map(VendaDTO::create));
     }
     @PostMapping()
-    public ResponseEntity post(VendaDTO dto) {
+    public ResponseEntity post(@RequestBody VendaDTO dto) {
         try {
             Venda venda = converter(dto);
             venda = service.salvar(venda);
