@@ -27,11 +27,9 @@ public class FuncionarioService {
 
     }
     public void validar(Funcionario funcionario) {
-        if (funcionario.getCpf()==null|| funcionario.getCpf().trim().equals("")) {
+        if (funcionario.getCpf()== null|| funcionario.getCpf().trim().equals("")) {
             throw new RegraNegocioException("Funcionário inválido");
         }
-
-
     }
 
 }

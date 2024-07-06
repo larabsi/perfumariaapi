@@ -15,8 +15,7 @@ public class ClassificacaoDTO {
     private String nome;
     public static ClassificacaoDTO create(Classificacao classificacao) {
         ModelMapper modelMapper = new ModelMapper();
-         ClassificacaoDTO dto = modelMapper.map(classificacao, ClassificacaoDTO.class);
-        dto.nome = classificacao.getProduto().getNome();
+        ClassificacaoDTO dto = modelMapper.map(classificacao, ClassificacaoDTO.class);
         return dto;
     }
 

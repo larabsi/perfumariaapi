@@ -15,7 +15,7 @@ public class EstoqueDTO {
     private Integer capacidadeMaxima;
     private Integer capacidadeMinima;
     private Integer pontoDeRessuprimento;
-    private Long idProduto;  // Para identicar qual o produto do estoque
+    private Long idProduto;
 
     public static EstoqueDTO create(Estoque estoque) {
         ModelMapper modelMapper = new ModelMapper();

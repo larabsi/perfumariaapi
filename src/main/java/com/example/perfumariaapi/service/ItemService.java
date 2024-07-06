@@ -38,11 +38,9 @@ public class ItemService{
 
     }
     public void validar(Item item) {
-        if (item.getProduto()==null) {
-            throw new RegraNegocioException("Item inválido");
+        if (item.getProduto() == null || item.getProduto().getNome().trim().equals("")) {
+            //throw new RegraNegocioException("Item inválido - Produto Null");
         }
-
-
     }
 
 }

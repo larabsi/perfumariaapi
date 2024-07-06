@@ -14,6 +14,7 @@ public class Fragrancia{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String descricao;
+
     @ManyToOne
     private Produto produto;
 }

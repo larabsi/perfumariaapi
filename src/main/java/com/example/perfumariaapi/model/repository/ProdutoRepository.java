@@ -1,13 +1,14 @@
 package com.example.perfumariaapi.model.repository;
 
-import com.example.perfumariaapi.model.entity.Classificacao;
-import com.example.perfumariaapi.model.entity.Estoque;
-import com.example.perfumariaapi.model.entity.Produto;
+import com.example.perfumariaapi.model.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
-    List<Produto> findByEstoque(Optional<Estoque> estoque);
+    List<Produto> findByEstoque(Optional<Estoque> estoques);
+    List<Produto> findByClassificacao(Optional<Classificacao> classificacao);
+    List<Produto> findByFornecedor(Optional<Fornecedor> fornecedor);
+    List<Produto> findByFragrancia(Optional<Fragrancia> fragrancia);
 
 }

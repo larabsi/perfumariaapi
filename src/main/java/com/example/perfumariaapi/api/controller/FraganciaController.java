@@ -1,8 +1,10 @@
 package com.example.perfumariaapi.api.controller;
 import com.example.perfumariaapi.api.dto.CupomDTO;
 import com.example.perfumariaapi.api.dto.FragranciaDTO;
+import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Cupom;
+import com.example.perfumariaapi.model.entity.Fornecedor;
 import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.FragranciaService;
@@ -40,6 +42,17 @@ public class FraganciaController {
         }
         return ResponseEntity.ok(fragrancia.map(FragranciaDTO::create));
     }
+
+    @GetMapping("{id}/produtos")
+    public ResponseEntity getProdutos(@PathVariable("id") Long id) {
+        Optional<Fragrancia> fragrancia = service.getFragranciaById(id);
+        if (!fragrancia.isPresent()) {
+            return new ResponseEntity("Não existe produto com essa fragrancia", HttpStatus.NOT_FOUND);
+        }
+        List<Produto> produtos = produtoService.getProdutosByFragrancia(fragrancia);
+        return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
+    }
+
     @PostMapping()
     public ResponseEntity post(@RequestBody FragranciaDTO dto) {
         try {
@@ -50,6 +63,7 @@ public class FraganciaController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     public Fragrancia converter(FragranciaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);
@@ -63,4 +77,5 @@ public class FraganciaController {
         }
         return fragrancia;
     }
+
 }

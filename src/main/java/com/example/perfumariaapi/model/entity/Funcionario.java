@@ -25,6 +25,7 @@ public class Funcionario {
     private String numeroTelefone;
     private String cargo;
     private String salario;
+
     @ManyToOne
     private Venda venda;
 }

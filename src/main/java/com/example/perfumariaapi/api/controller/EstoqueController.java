@@ -4,10 +4,7 @@ import com.example.perfumariaapi.api.dto.EstoqueDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Cliente;
-import com.example.perfumariaapi.model.entity.Estoque;
-import com.example.perfumariaapi.model.entity.Produto;
-import com.example.perfumariaapi.model.entity.Venda;
+import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.EstoqueService;
 import com.example.perfumariaapi.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +42,7 @@ public class EstoqueController {
         }
         return ResponseEntity.ok(estoque.map(EstoqueDTO::create));
     }
+
     @GetMapping("{id}/produtos")
     public ResponseEntity getProdutos(@PathVariable("id") Long id) {
         Optional<Estoque> estoque = service.getEstoqueById(id);
@@ -54,6 +52,7 @@ public class EstoqueController {
         List<Produto> produtos = produtoService.getProdutosByEstoque(estoque);
         return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
     }
+
     @PostMapping()
     public ResponseEntity post(@RequestBody EstoqueDTO dto) {
         try {
@@ -68,15 +67,12 @@ public class EstoqueController {
     public Estoque converter(EstoqueDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Estoque estoque = modelMapper.map(dto, Estoque.class);
-
         if(dto.getIdProduto() != null) {
             Optional<Produto> produto = produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
-
                 estoque.setProduto(null);
             } else{ estoque.setProduto(produto.get());} }
-
-
         return estoque;
     }
+
 }

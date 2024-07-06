@@ -13,8 +13,9 @@ public class Item{
     private Long id;
     private double quantidade;
     private double valor;
+
     @ManyToOne
-    private Venda vendas;
+    private Venda venda;
     @OneToOne
     private Produto produto;
 

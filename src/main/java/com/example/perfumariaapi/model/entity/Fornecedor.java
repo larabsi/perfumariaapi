@@ -23,6 +23,7 @@ public class Fornecedor {
     private String cidade;
     private String uf;
     private String cep;
+
     @ManyToOne
     private Produto produto;
 }

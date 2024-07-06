@@ -20,6 +20,10 @@ public class VendaDTO {
 
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();
+        VendaDTO dto = modelMapper.map(venda, VendaDTO.class);
+        dto.idProduto = venda.getProduto().getId();
+        dto.idCliente = venda.getCliente().getId();
         return modelMapper.map(venda, VendaDTO.class);
     }
+
 }

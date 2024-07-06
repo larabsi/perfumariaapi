@@ -1,11 +1,9 @@
 package com.example.perfumariaapi.api.controller;
 import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.ItemDTO;
+import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Cliente;
-import com.example.perfumariaapi.model.entity.Item;
-import com.example.perfumariaapi.model.entity.Produto;
-import com.example.perfumariaapi.model.entity.Venda;
+import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.ItemService;
 import com.example.perfumariaapi.service.ProdutoService;
 import com.example.perfumariaapi.service.VendaService;
@@ -46,6 +44,16 @@ public class ItemController {
         return ResponseEntity.ok(item.map(ItemDTO::create));
     }
 
+    @GetMapping("{id}/vendas")
+    public ResponseEntity getVendas(@PathVariable("id") Long id) {
+        Optional<Item> item = service.getItemById(id);
+        if (!item.isPresent()) {
+            return new ResponseEntity("Item não encontrada", HttpStatus.NOT_FOUND);
+        }
+        List<Venda> vendas = vendaService.getVendasByItem(item);
+        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
+    }
+
     @PostMapping()
     public ResponseEntity post(@RequestBody ItemDTO dto) {
         try {
@@ -56,32 +64,27 @@ public class ItemController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     public Item converter(ItemDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Item item = modelMapper.map(dto, Item.class);
-
-
         if(dto.getIdProduto() != null) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
+            Optional<Produto> produto = produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
-
                 item.setProduto(null);
-            }
-            else{
+            } else{
                 item.setProduto(produto.get());
             }
         }
-        if(dto.getIdVendas() !=0) {
+        if(dto.getIdVendas() != null) {
             Optional<Venda> venda = vendaService.getVendaById(dto.getIdVendas());
             if(!venda.isPresent()){
-
-                item.setVendas(null);
-            }
-            else{
-                item.setVendas( venda.get());
+                item.setVenda(null);
+            } else{
+                item.setVenda(venda.get());
             }
         }
-
         return item;
     }
+
 }
