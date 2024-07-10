@@ -3,10 +3,7 @@ import com.example.perfumariaapi.api.dto.FuncionarioDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
-import com.example.perfumariaapi.service.ClienteService;
-import com.example.perfumariaapi.service.FuncionarioService;
-import com.example.perfumariaapi.service.ProdutoService;
-import com.example.perfumariaapi.service.VendaService;
+import com.example.perfumariaapi.service.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -28,6 +25,7 @@ public class VendaController {
     private final ProdutoService produtoService;
     private final FuncionarioService funcionarioService;
     private final ClienteService clienteService;
+    private final CupomService cupomService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -109,6 +107,14 @@ public class VendaController {
                 venda.setProduto(null);
             } else {
                 venda.setFuncionario(funcionario.get());
+            }
+        }
+        if(dto.getIdCupom() != null) {
+            Optional<Cupom> cupom = cupomService.getCupomById(dto.getIdCupom());
+            if(!cupom.isPresent()){
+                venda.setProduto(null);
+            } else{
+                venda.setCupom(cupom.get());
             }
         }
         return venda;

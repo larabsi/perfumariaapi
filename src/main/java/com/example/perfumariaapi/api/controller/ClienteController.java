@@ -98,8 +98,12 @@ public class ClienteController {
         Cliente cliente = modelMapper.map(dto, Cliente.class);
         if(dto.getIdVendas () != null) {
             Optional<Venda> vendas= vendaService.getVendaById(dto.getIdVendas());
-            if(!vendas.isPresent()){ cliente.setVenda(null);
-            } else{ cliente.setVenda(vendas.get());} }
+            if(!vendas.isPresent()){
+                cliente.setVenda(null);
+            }else{
+                cliente.setVenda(vendas.get());
+            }
+        }
         return cliente;
     }
 }

@@ -36,7 +36,6 @@ public class ItemService{
     public Item salvar(Item item){
         validar(item);
         return repository.save(item);
-
     }
 
     @Transactional
@@ -44,6 +43,7 @@ public class ItemService{
         Objects.requireNonNull(item.getId());
         repository.delete(item);
     }
+
     public void validar(Item item) {
         if (item.getProduto() == null || item.getProduto().getNome().trim().equals("")) {
             throw new RegraNegocioException("Item inválido - Produto Null");

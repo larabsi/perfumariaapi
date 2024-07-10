@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 public class VendaDTO {
     private Long id;
     private String data;
-    private String valorTotal;
+    private String valor_total;
     private String formaPagamento;
     private Long idCupom;
     private Long idFuncionario;
@@ -21,9 +21,7 @@ public class VendaDTO {
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();
         VendaDTO dto = modelMapper.map(venda, VendaDTO.class);
-        dto.idProduto = venda.getProduto().getId();
-        dto.idCliente = venda.getCliente().getId();
-        return modelMapper.map(venda, VendaDTO.class);
+        return dto;
     }
 
 }

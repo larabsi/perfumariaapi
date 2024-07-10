@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class ProdutoController {
     private final ProdutoService service;
-    private final ClassificacaoService classificacaoService;
 
     @GetMapping()
     public ResponseEntity get() {

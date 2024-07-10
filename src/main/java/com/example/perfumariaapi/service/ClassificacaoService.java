@@ -35,6 +35,5 @@ public class ClassificacaoService {
                 if (classificacao.getDescricao() == null || classificacao.getDescricao().trim().equals("")) {
                         throw new RegraNegocioException("Descrição inválida");
                 }
-
         }
 }

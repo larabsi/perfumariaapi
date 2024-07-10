@@ -33,21 +33,22 @@ public class VendaService {
 
     public void validar(Venda venda) {
         if (venda.getCliente() == null) {
-            throw new RegraNegocioException("Venda inválida");
+            throw new RegraNegocioException("Venda inválida. Venda sem cliente");
         }
-
-        if (venda.getItem()== null) {
-            throw new RegraNegocioException("Itens inválidos");
-        }
-
-        if (venda.getFuncionario()== null) {
+//        if (venda.getItem() == null) {
+//            throw new RegraNegocioException("Itens inválidos");
+//        }
+        if (venda.getFuncionario() == null) {
             throw new RegraNegocioException("Funcionário inválido");
         }
-        if (venda.getValor_total()== null) {
+        if (venda.getValor_total() == null) {
             throw new RegraNegocioException("Valor inválido");
         }
-        if (venda.getFormaPagamento()== null) {
-            throw new RegraNegocioException("Valor inválido");
+        if (venda.getFormaPagamento() == null) {
+            throw new RegraNegocioException("Forma de Pagamento inválida");
+        }
+        if (venda.getProduto() == null) {
+            throw new RegraNegocioException("Venda sem produtos");
         }
     }
 

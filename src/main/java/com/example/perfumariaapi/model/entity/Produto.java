@@ -37,10 +37,8 @@ public class Produto {
     @OneToMany(mappedBy = "produto")
     private List<Fornecedor> fornecedor;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "produto")
-    private List<Estoque> estoques;
-
-
+//   @JsonIgnore
+//   @OneToMany(mappedBy = "produto")
+//   private List<Estoque> estoques;
 
 }

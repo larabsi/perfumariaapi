@@ -41,6 +41,7 @@ public class ClassificacaoController {
         }
         return ResponseEntity.ok(classificacao.map(ClassificacaoDTO::create));
     }
+
    @GetMapping("{id}/produtos")
     public ResponseEntity getProdutos(@PathVariable("id") Long id) {
        Optional<Classificacao> classificacao = service.getClassificacaoById(id);
@@ -61,6 +62,7 @@ public class ClassificacaoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PutMapping("{id}")
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ClassificacaoDTO dto) {
         if (!service.getClassificacaoById(id).isPresent()) {

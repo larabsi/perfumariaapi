@@ -18,7 +18,7 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String data;
-    private Double valor_total;
+    private String valor_total;
     private String formaPagamento;
 
     @ManyToOne

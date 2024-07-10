@@ -16,6 +16,7 @@ public class Cliente {
     private String email;
     private String numeroTelefone;
     private String dataNascimento;
+    private Long idVendas;
 
     @ManyToOne
     private Venda venda;

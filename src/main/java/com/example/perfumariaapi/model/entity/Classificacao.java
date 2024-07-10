@@ -20,10 +20,9 @@ public class Classificacao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String descricao;
+    private Long idProduto;
 
     @JsonIgnore
     @OneToMany(mappedBy = "classificacao")
     private List<Produto> produtos;
-
-
 }
