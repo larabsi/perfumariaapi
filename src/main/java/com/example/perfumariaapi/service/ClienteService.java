@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -15,7 +16,7 @@ public class ClienteService {
     private static ClienteRepository repository;
 
     public ClienteService(ClienteRepository clienteRepository){this.repository = clienteRepository;}
-    public List<Cliente> getCliente(){ return repository.findAll();}
+    public List<Cliente> getClientes(){ return repository.findAll();}
 
     public Optional<Cliente> getClienteById(Long id){ return repository.findById(id); }
 
@@ -24,9 +25,18 @@ public class ClienteService {
         validar(cliente);
         return repository.save(cliente);
     }
+
+    @Transactional
+    public void excluir(Cliente cliente) {
+        Objects.requireNonNull(cliente.getId());
+        repository.delete(cliente);
+    }
     public void validar(Cliente cliente) {
         if (cliente.getCpf()== null|| cliente.getCpf().trim().equals("")) {
             throw new RegraNegocioException("Cliente inválido");
+        }
+        if (cliente.getNome()== null|| cliente.getNome().trim().equals("")) {
+            throw new RegraNegocioException("Nome inválido");
         }
     }
 

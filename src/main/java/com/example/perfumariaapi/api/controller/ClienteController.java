@@ -1,6 +1,7 @@
 package com.example.perfumariaapi.api.controller;
 
 import com.example.perfumariaapi.api.dto.ClienteDTO;
+import com.example.perfumariaapi.api.dto.FornecedorDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
@@ -30,7 +31,7 @@ public class ClienteController {
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Cliente> clientes = service.getCliente();
+        List<Cliente> clientes = service.getClientes();
         return ResponseEntity.ok(clientes.stream().map(ClienteDTO::create).collect(Collectors.toList()));
     }
 
@@ -59,6 +60,34 @@ public class ClienteController {
             Cliente cliente = converter(dto);
             cliente = service.salvar(cliente);
             return new ResponseEntity(cliente, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ClienteDTO dto) {
+        if (!service.getClienteById(id).isPresent()) {
+            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Cliente cliente = converter(dto);
+            cliente.setId(id);
+            service.salvar(cliente);
+            return ResponseEntity.ok(cliente);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Cliente> cliente = service.getClienteById(id);
+        if (!cliente.isPresent()) {
+            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(cliente.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

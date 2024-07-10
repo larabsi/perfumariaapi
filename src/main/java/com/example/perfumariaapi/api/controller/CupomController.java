@@ -1,6 +1,8 @@
 package com.example.perfumariaapi.api.controller;
+
 import com.example.perfumariaapi.api.dto.CupomDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
+
 import com.example.perfumariaapi.service.CupomService;
 import com.example.perfumariaapi.model.entity.Cupom;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +21,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CupomController {
     private final CupomService service;
-    public Cupom converter(CupomDTO dto) {
-        ModelMapper modelMapper = new ModelMapper();
-        Cupom cupom = modelMapper.map(dto, Cupom.class);
-        return cupom;
-    }
 
     @GetMapping()
     public ResponseEntity get() {
@@ -39,6 +36,7 @@ public class CupomController {
         }
         return ResponseEntity.ok(cupom.map(CupomDTO::create));
     }
+
     @PostMapping()
     public ResponseEntity post(@RequestBody CupomDTO dto) {
         try {
@@ -50,4 +48,39 @@ public class CupomController {
         }
     }
 
-}
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CupomDTO dto) {
+        if (!service.getCupomById(id).isPresent()) {
+            return new ResponseEntity("Cupom não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Cupom cupom = converter(dto);
+            cupom.setId(id);
+            service.salvar(cupom);
+            return ResponseEntity.ok(cupom);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Cupom> cupom = service.getCupomById(id);
+        if (!cupom.isPresent()) {
+            return new ResponseEntity("Cupom não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(cupom.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    public Cupom converter(CupomDTO dto) {
+        ModelMapper modelMapper = new ModelMapper();
+        Cupom cupom = modelMapper.map(dto, Cupom.class);
+        return cupom;
+    }
+  }
+

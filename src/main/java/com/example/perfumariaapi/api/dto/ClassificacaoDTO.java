@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 public class ClassificacaoDTO {
     private Long id;
     private String descricao;
-    private Long idProduto;
     private String nome;
     public static ClassificacaoDTO create(Classificacao classificacao) {
         ModelMapper modelMapper = new ModelMapper();

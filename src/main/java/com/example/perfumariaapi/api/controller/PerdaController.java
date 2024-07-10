@@ -51,6 +51,35 @@ public class PerdaController {
         }
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PerdaDTO dto) {
+        if (!service.getPerdaById(id).isPresent()) {
+            return new ResponseEntity("Perda não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Perda perda = converter(dto);
+            perda.setId(id);
+            service.salvar(perda);
+            return ResponseEntity.ok(perda);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Perda> perda = service.getPerdaById(id);
+        if (!perda.isPresent()) {
+            return new ResponseEntity("Perda não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(perda.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     public Perda converter(PerdaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Perda perda = modelMapper.map(dto, Perda.class);
@@ -61,4 +90,5 @@ public class PerdaController {
             } else{ perda.setProduto(produto.get());} }
         return perda;
     }
+
 }

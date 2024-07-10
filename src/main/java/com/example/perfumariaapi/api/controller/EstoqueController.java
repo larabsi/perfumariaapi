@@ -1,8 +1,5 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.ClienteDTO;
-import com.example.perfumariaapi.api.dto.EstoqueDTO;
-import com.example.perfumariaapi.api.dto.ProdutoDTO;
-import com.example.perfumariaapi.api.dto.VendaDTO;
+import com.example.perfumariaapi.api.dto.*;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.EstoqueService;
@@ -64,6 +61,34 @@ public class EstoqueController {
         }
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody EstoqueDTO dto) {
+        if (!service.getEstoqueById(id).isPresent()) {
+            return new ResponseEntity("Estoque não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Estoque estoque = converter(dto);
+            estoque.setId(id);
+            service.salvar(estoque);
+            return ResponseEntity.ok(estoque);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Estoque> estoque = service.getEstoqueById(id);
+        if (!estoque.isPresent()) {
+            return new ResponseEntity("Estoque não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(estoque.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     public Estoque converter(EstoqueDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Estoque estoque = modelMapper.map(dto, Estoque.class);

@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -19,7 +20,7 @@ public class FornecedorService {
         this.repository = fornecedorRepository;
     }
 
-    public List<Fornecedor> getFornecedor() {
+    public List<Fornecedor> getFornecedores() {
         return repository.findAll();
     }
 
@@ -34,9 +35,21 @@ public class FornecedorService {
         return repository.save(fornecedor);
 
     }
+
+    @Transactional
+    public void excluir(Fornecedor fornecedor) {
+        Objects.requireNonNull(fornecedor.getId());
+        repository.delete(fornecedor);
+    }
     public void validar(Fornecedor fornecedor) {
         if (fornecedor.getCnpj()==null) {
             throw new RegraNegocioException("Fornecedor inválido");
+        }
+        if (fornecedor.getNome()==null|| fornecedor.getNome().trim().equals("")) {
+            throw new RegraNegocioException("Nome inválido");
+        }
+        if (fornecedor.getNumeroTelefone()==null|| fornecedor.getNumeroTelefone().trim().equals("")) {
+            throw new RegraNegocioException("Nome inválido");
         }
 
 

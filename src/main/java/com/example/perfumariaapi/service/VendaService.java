@@ -5,6 +5,7 @@ import com.example.perfumariaapi.model.repository.VendaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,9 +25,29 @@ public class VendaService {
         return repository.save(venda);
     }
 
+    @Transactional
+    public void excluir(Venda venda) {
+        Objects.requireNonNull(venda.getId());
+        repository.delete(venda);
+    }
+
     public void validar(Venda venda) {
         if (venda.getCliente() == null) {
             throw new RegraNegocioException("Venda inválida");
+        }
+
+        if (venda.getItem()== null) {
+            throw new RegraNegocioException("Itens inválidos");
+        }
+
+        if (venda.getFuncionario()== null) {
+            throw new RegraNegocioException("Funcionário inválido");
+        }
+        if (venda.getValor_total()== null) {
+            throw new RegraNegocioException("Valor inválido");
+        }
+        if (venda.getFormaPagamento()== null) {
+            throw new RegraNegocioException("Valor inválido");
         }
     }
 

@@ -6,6 +6,7 @@ import com.example.perfumariaapi.model.entity.Classificacao;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -13,8 +14,8 @@ public class ClassificacaoService {
 
         private ClassificacaoRepository repository;
 
-        public ClassificacaoService(ClassificacaoRepository classificacaoRepository){this.repository = classificacaoRepository;}
-        public List<Classificacao> getClassificacao(){ return repository.findAll();}
+        public ClassificacaoService(ClassificacaoRepository repository){this.repository = repository;}
+        public List<Classificacao> getClassificacoes(){ return repository.findAll();}
 
         public Optional<Classificacao> getClassificacaoById(Long id){ return repository.findById(id); }
 
@@ -24,9 +25,16 @@ public class ClassificacaoService {
                 return repository.save(classificacao);
         }
 
+        @Transactional
+        public void excluir(Classificacao classificacao) {
+                Objects.requireNonNull(classificacao.getId());
+                repository.delete(classificacao);
+        }
+
         public void validar(Classificacao classificacao) {
                 if (classificacao.getDescricao() == null || classificacao.getDescricao().trim().equals("")) {
                         throw new RegraNegocioException("Descrição inválida");
                 }
+
         }
 }

@@ -1,9 +1,13 @@
 package com.example.perfumariaapi.model.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,6 +19,7 @@ public class Fragrancia{
     private Long id;
     private String descricao;
 
-    @ManyToOne
-    private Produto produto;
+    @JsonIgnore
+    @OneToMany(mappedBy = "fragrancia")
+    private List<Produto> produtos;
 }

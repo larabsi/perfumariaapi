@@ -1,5 +1,5 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.ProdutoDTO;
+import com.example.perfumariaapi.api.dto.FuncionarioDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
@@ -43,6 +43,7 @@ public class VendaController {
         }
         return ResponseEntity.ok(venda.map(VendaDTO::create));
     }
+
     @PostMapping()
     public ResponseEntity post(@RequestBody VendaDTO dto) {
         try {
@@ -53,6 +54,36 @@ public class VendaController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody VendaDTO dto) {
+        if (!service.getVendaById(id).isPresent()) {
+            return new ResponseEntity("Venda não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Venda venda = converter(dto);
+            venda.setId(id);
+            service.salvar(venda);
+            return ResponseEntity.ok(venda);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Venda> venda = service.getVendaById(id);
+        if (!venda.isPresent()) {
+            return new ResponseEntity("Venda não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(venda.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     public Venda converter(VendaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Venda venda = modelMapper.map(dto, Venda.class);

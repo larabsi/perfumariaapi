@@ -32,11 +32,22 @@ public class CupomService {
         return repository.save(cupom);
 
     }
+
+    @Transactional
+    public void excluir(Cupom cupom) {
+        Objects.requireNonNull(cupom.getId());
+        repository.delete(cupom);
+    }
     public void validar(Cupom cupom) {
         if (cupom.getCodigo() == null || cupom.getCodigo().trim().equals("")) {
             throw new RegraNegocioException("Cupom inválido");
         }
-
+        if (cupom.getDataExpiracao() == null || cupom.getDataExpiracao().trim().equals("")) {
+            throw new RegraNegocioException("Data de Expiração inválida");
+        }
+        if (cupom.getDesconto()== null || cupom.getDesconto().trim().equals("")) {
+            throw new RegraNegocioException("Desconto inválido");
+        }
 
     }
 

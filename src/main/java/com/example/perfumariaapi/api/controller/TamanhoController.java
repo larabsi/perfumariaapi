@@ -1,8 +1,8 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.ClienteDTO;
+import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.api.dto.TamanhoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Cliente;
+import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.service.ProdutoService;
@@ -29,7 +29,7 @@ public class TamanhoController {
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Tamanho> tamanhos = service.getTamanho();
+        List<Tamanho> tamanhos = service.getTamanhos();
         return ResponseEntity.ok(tamanhos.stream().map(TamanhoDTO::create).collect(Collectors.toList()));
     }
 
@@ -41,6 +41,15 @@ public class TamanhoController {
         }
         return ResponseEntity.ok(tamanho.map(TamanhoDTO::create));
     }
+    @GetMapping("{id}/produtos")
+    public ResponseEntity getProdutos(@PathVariable("id") Long id) {
+        Optional<Tamanho> tamanho = service.getTamanhoById(id);
+        if (!tamanho.isPresent()) {
+            return new ResponseEntity("Tamanho nao encontrado", HttpStatus.NOT_FOUND);
+        }
+        List<Produto> produtos = produtoService.getProdutosByTamanho(tamanho);
+        return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
+    }
     @PostMapping()
     public ResponseEntity post( @RequestBody TamanhoDTO dto) {
         try {
@@ -51,17 +60,37 @@ public class TamanhoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody TamanhoDTO dto) {
+        if (!service.getTamanhoById(id).isPresent()) {
+            return new ResponseEntity("Tamanho não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Tamanho tamanho = converter(dto);
+            tamanho.setId(id);
+            service.salvar(tamanho);
+            return ResponseEntity.ok(tamanho);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Tamanho> tamanho = service.getTamanhoById(id);
+        if (!tamanho.isPresent()) {
+            return new ResponseEntity("Tamanho não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(tamanho.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     public Tamanho converter(TamanhoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        Tamanho tamanho = modelMapper.map(dto, Tamanho.class);
-
-        if(dto.getIdProduto() != null) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
-            if(!produto.isPresent()){
-
-                tamanho.setProduto(null);
-            } else{ tamanho.setProduto(produto.get());} }
-
-        return tamanho;
+        return modelMapper.map(dto, Tamanho.class);
     }
 }

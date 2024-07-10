@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,9 +38,15 @@ public class ItemService{
         return repository.save(item);
 
     }
+
+    @Transactional
+    public void excluir(Item item) {
+        Objects.requireNonNull(item.getId());
+        repository.delete(item);
+    }
     public void validar(Item item) {
         if (item.getProduto() == null || item.getProduto().getNome().trim().equals("")) {
-            //throw new RegraNegocioException("Item inválido - Produto Null");
+            throw new RegraNegocioException("Item inválido - Produto Null");
         }
     }
 

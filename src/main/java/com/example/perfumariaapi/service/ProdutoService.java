@@ -17,8 +17,8 @@ import java.util.Objects;
 public class ProdutoService {
     private static ProdutoRepository repository;
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
-        this.repository = produtoRepository;
+    public ProdutoService(ProdutoRepository repository) {
+        this.repository = repository;
     }
     public List<Produto> getProdutos() {
         return repository.findAll();
@@ -28,14 +28,33 @@ public class ProdutoService {
     public List<Produto> getProdutosByClassificacao(Optional<Classificacao> classificacao) { return repository.findByClassificacao(classificacao); }
     public List<Produto> getProdutosByFornecedor(Optional<Fornecedor> fornecedor) { return repository.findByFornecedor(fornecedor); }
     public List<Produto> getProdutosByFragrancia(Optional<Fragrancia> fragrancia) { return repository.findByFragrancia(fragrancia); }
+    public List<Produto> getProdutosByTamanho(Optional<Tamanho> tamanho) { return repository.findByTamanho(tamanho); }
+
     @Transactional
     public Produto salvar(Produto produto){
         validar(produto);
         return repository.save(produto);
     }
+
+    @Transactional
+    public void excluir(Produto produto) {
+        Objects.requireNonNull(produto.getId());
+        repository.delete(produto);
+    }
+
     public void validar(Produto produto) {
         if (produto.getNome() == null || produto.getNome().trim().equals("")) {
-            throw new RegraNegocioException("Produto inválido");
+            throw new RegraNegocioException("Nome inválido");
         }
+        if (produto.getClassificacao() == null) {
+            throw new RegraNegocioException("Classificacao inválido");
+        }
+        if (produto.getFragrancia() == null) {
+            throw new RegraNegocioException("Fragrancia inválida");
+        }
+        if (produto.getTamanho() == null) {
+            throw new RegraNegocioException("Tamanho inválido");
+        }
+
     }
 }

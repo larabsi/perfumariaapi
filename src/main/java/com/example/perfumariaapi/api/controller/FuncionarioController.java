@@ -1,7 +1,9 @@
 package com.example.perfumariaapi.api.controller;
+
 import com.example.perfumariaapi.api.dto.FuncionarioDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
+
 import com.example.perfumariaapi.model.entity.Funcionario;
 import com.example.perfumariaapi.model.entity.Venda;
 import com.example.perfumariaapi.service.FuncionarioService;
@@ -61,6 +63,33 @@ public class FuncionarioController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FuncionarioDTO dto) {
+        if (!service.getFuncionarioById(id).isPresent()) {
+            return new ResponseEntity("Funcionário não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Funcionario funcionario = converter(dto);
+            funcionario.setId(id);
+            service.salvar(funcionario);
+            return ResponseEntity.ok(funcionario);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Funcionario> funcionario = service.getFuncionarioById(id);
+        if (!funcionario.isPresent()) {
+            return new ResponseEntity("Funcionario não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(funcionario.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     public Funcionario converter(FuncionarioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -69,7 +98,10 @@ public class FuncionarioController {
             Optional<Venda> vendas= vendaService.getVendaById(dto.getIdVenda());
             if(!vendas.isPresent()){
                 funcionario.setVenda(null);
-            } else{ funcionario.setVenda(vendas.get());} }
+            } else{
+                funcionario.setVenda(vendas.get());
+            }
+        }
         return funcionario;
     }
 

@@ -10,5 +10,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     List<Produto> findByClassificacao(Optional<Classificacao> classificacao);
     List<Produto> findByFornecedor(Optional<Fornecedor> fornecedor);
     List<Produto> findByFragrancia(Optional<Fragrancia> fragrancia);
+    List<Produto> findByTamanho(Optional<Tamanho> tamanho);
+
+
 
 }

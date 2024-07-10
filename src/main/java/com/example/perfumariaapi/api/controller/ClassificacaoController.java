@@ -1,7 +1,9 @@
 package com.example.perfumariaapi.api.controller;
 import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
+import com.example.perfumariaapi.api.dto.FornecedorDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.model.entity.Classificacao;
+import com.example.perfumariaapi.model.entity.Fornecedor;
 import com.example.perfumariaapi.model.repository.ClassificacaoRepository;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.ClassificacaoService;
@@ -27,7 +29,7 @@ public class ClassificacaoController {
 
     @GetMapping
     public ResponseEntity get() {
-        List<Classificacao> classificacoes = service.getClassificacao();
+        List<Classificacao> classificacoes = service.getClassificacoes();
         return ResponseEntity.ok(classificacoes.stream().map(ClassificacaoDTO::create).collect(Collectors.toList()));
     }
 
@@ -59,16 +61,37 @@ public class ClassificacaoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ClassificacaoDTO dto) {
+        if (!service.getClassificacaoById(id).isPresent()) {
+            return new ResponseEntity("Classificação não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Classificacao classificacao = converter(dto);
+            classificacao.setId(id);
+            service.salvar(classificacao);
+            return ResponseEntity.ok(classificacao);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Classificacao> classificacao = service.getClassificacaoById(id);
+        if (!classificacao.isPresent()) {
+            return new ResponseEntity("Classificacao não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(classificacao.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     public Classificacao converter(  ClassificacaoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        Classificacao classificacao = modelMapper.map(dto, Classificacao.class);
-        if(dto.getIdProduto() !=0) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
-            if(!produto.isPresent()){
-                classificacao.setProduto(null);
-            } else{ classificacao.setProduto(produto.get());} }
-
-        return classificacao;
+        return modelMapper.map(dto, Classificacao.class);
     }
 }

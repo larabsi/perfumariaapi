@@ -1,11 +1,7 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.PedidoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Cliente;
-import com.example.perfumariaapi.model.entity.Fornecedor;
-import com.example.perfumariaapi.model.entity.Pedido;
-import com.example.perfumariaapi.model.entity.Produto;
+import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.FornecedorService;
 import com.example.perfumariaapi.service.PedidoService;
 import com.example.perfumariaapi.service.ProdutoService;
@@ -32,7 +28,7 @@ public class PedidoController {
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Pedido> pedidos = service.getPedido();
+        List<Pedido> pedidos = service.getPedidos();
         return ResponseEntity.ok(pedidos.stream().map(PedidoDTO::create).collect(Collectors.toList()));
     }
 
@@ -44,12 +40,42 @@ public class PedidoController {
         }
         return ResponseEntity.ok(pedido.map(PedidoDTO::create));
     }
+
     @PostMapping()
     public ResponseEntity post(@RequestBody PedidoDTO dto) {
         try {
             Pedido pedido = converter(dto);
             pedido = service.salvar(pedido);
             return new ResponseEntity(pedido, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PedidoDTO dto) {
+        if (!service.getPedidoById(id).isPresent()) {
+            return new ResponseEntity("Pedido não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Pedido pedido = converter(dto);
+            pedido.setId(id);
+            service.salvar(pedido);
+            return ResponseEntity.ok(pedido);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Pedido> pedido = service.getPedidoById(id);
+        if (!pedido.isPresent()) {
+            return new ResponseEntity("Pedido não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(pedido.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

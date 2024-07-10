@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 public class FragranciaDTO {
     private Long id;
     private String descricao;
-    private Long idProduto;
     private String nome;
 
     public static FragranciaDTO create(Fragrancia fragrancia) {

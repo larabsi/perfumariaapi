@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,11 +38,19 @@ public class PerdaService {
     public Perda salvar(Perda perda){
         validar(perda);
         return repository.save(perda);
+    }
 
+    @Transactional
+    public void excluir(Perda perda) {
+        Objects.requireNonNull(perda.getId());
+        repository.delete(perda);
     }
     public void validar(Perda perda) {
         if ( perda.getProduto()==null) {
-            throw new RegraNegocioException("Perda inválida");
+            throw new RegraNegocioException("Produto inválido");
+        }
+        if (perda.getData()==null|| perda.getData().trim().equals("")) {
+            throw new RegraNegocioException("Data inválida");
         }
 
 

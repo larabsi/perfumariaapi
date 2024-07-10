@@ -24,9 +24,14 @@ public class Produto {
     @ManyToOne
     private Estoque estoque;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "produto")
-    private List<Classificacao> classificacao;
+    @ManyToOne
+    private Tamanho tamanho;
+
+    @ManyToOne
+    private Classificacao classificacao;
+
+    @ManyToOne
+    private Fragrancia fragrancia;
 
     @JsonIgnore
     @OneToMany(mappedBy = "produto")
@@ -36,8 +41,6 @@ public class Produto {
     @OneToMany(mappedBy = "produto")
     private List<Estoque> estoques;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "produto")
-    private List<Fragrancia> fragrancia;
+
 
 }

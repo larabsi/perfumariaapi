@@ -1,10 +1,9 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.CupomDTO;
+
 import com.example.perfumariaapi.api.dto.FragranciaDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Cupom;
-import com.example.perfumariaapi.model.entity.Fornecedor;
+
 import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.FragranciaService;
@@ -30,7 +29,7 @@ public class FraganciaController {
     private final ProdutoService produtoService;
     @GetMapping()
     public ResponseEntity get() {
-        List<Fragrancia> fragrancias = service.getFragrancia();
+        List<Fragrancia> fragrancias = service.getFragrancias();
         return ResponseEntity.ok(fragrancias.stream().map(FragranciaDTO::create).collect(Collectors.toList()));
     }
 
@@ -63,19 +62,37 @@ public class FraganciaController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody  FragranciaDTO dto) {
+        if (!service.getFragranciaById(id).isPresent()) {
+            return new ResponseEntity("Fragrancia não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Fragrancia fragrancia = converter(dto);
+            fragrancia.setId(id);
+            service.salvar(fragrancia);
+            return ResponseEntity.ok(fragrancia);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Fragrancia> fragrancia = service.getFragranciaById(id);
+        if (!fragrancia.isPresent()) {
+            return new ResponseEntity("Fragrancia não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(fragrancia.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     public Fragrancia converter(FragranciaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        Fragrancia fragrancia = modelMapper.map(dto, Fragrancia.class);
-        if(dto.getIdProduto() != null) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
-            if(!produto.isPresent()){
-                fragrancia.setProduto(null);
-            } else{
-                fragrancia.setProduto(produto.get());
-            }
-        }
-        return fragrancia;
+        return modelMapper.map(dto, Fragrancia.class);
+
     }
 
 }

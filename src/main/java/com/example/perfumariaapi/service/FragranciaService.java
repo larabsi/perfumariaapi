@@ -8,17 +8,18 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class FragranciaService {
     private FragranciaRepository repository;
 
-    public FragranciaService(FragranciaRepository fragranciaRepository) {
-        this.repository = fragranciaRepository;
+    public FragranciaService(FragranciaRepository repository) {
+        this.repository = repository;
     }
 
-    public List<Fragrancia> getFragrancia() {
+    public List<Fragrancia> getFragrancias() {
         return repository.findAll();
     }
 
@@ -31,6 +32,12 @@ public class FragranciaService {
         validar(fragrancia);
         return repository.save(fragrancia);
 
+    }
+
+    @Transactional
+    public void excluir(Fragrancia fragrancia) {
+        Objects.requireNonNull(fragrancia.getId());
+        repository.delete(fragrancia);
     }
     public void validar(Fragrancia fragrancia) {
         if (fragrancia.getDescricao() == null ) {

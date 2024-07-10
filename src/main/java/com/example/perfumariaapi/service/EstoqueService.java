@@ -8,7 +8,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+
 
 @Service
 public class EstoqueService {
@@ -24,9 +27,18 @@ public class EstoqueService {
         validar(estoque);
         return repository.save(estoque);
     }
+
+    @Transactional
+    public void excluir(Estoque estoque) {
+        Objects.requireNonNull(estoque.getId());
+        repository.delete(estoque);
+    }
     public void validar(Estoque estoque) {
-        if (estoque.getProduto()==null) {
+        if (estoque.getProduto()==null ) {
             throw new RegraNegocioException("Estoque inválido");
+        }
+        if (estoque.getQuantidade() == null ) {
+            throw new RegraNegocioException("Quantidade inválida");
         }
     }
 

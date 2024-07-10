@@ -10,17 +10,18 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class TamanhoService {
     private TamanhoRepository repository;
 
-    public TamanhoService(TamanhoRepository tamanhoRepository) {
-        this.repository = tamanhoRepository;
+    public TamanhoService(TamanhoRepository repository) {
+        this.repository = repository;
     }
 
-    public List<Tamanho> getTamanho() {
+    public List<Tamanho> getTamanhos() {
         return repository.findAll();
     }
 
@@ -33,13 +34,17 @@ public class TamanhoService {
     public Tamanho salvar(Tamanho tamanho){
         validar(tamanho);
         return repository.save(tamanho);
-
     }
+
+    @Transactional
+    public void excluir(Tamanho tamanho) {
+        Objects.requireNonNull(tamanho.getId());
+        repository.delete(tamanho);
+    }
+
     public void validar(Tamanho tamanho) {
-        if (tamanho.getProduto()==null) {
+        if (tamanho.getVolume()==null) {
             throw new RegraNegocioException("Tamanho inválido");
         }
-
-
     }
 }

@@ -1,11 +1,14 @@
 package com.example.perfumariaapi.model.entity;
 import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,8 +21,9 @@ public class Classificacao {
     private Long id;
     private String descricao;
 
-    @ManyToOne
-    private Produto produto;
+    @JsonIgnore
+    @OneToMany(mappedBy = "classificacao")
+    private List<Produto> produtos;
 
 
 }

@@ -13,7 +13,9 @@ public class ProdutoDTO {
     private Long id;
     private String nome;
     private String codigoBarras;
-
+    private Long idTamanho;
+    private Long idClassificacao;
+    private Long idFragrancia;
     public static ProdutoDTO create(Produto produto) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(produto, ProdutoDTO.class);

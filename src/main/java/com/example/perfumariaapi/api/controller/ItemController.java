@@ -1,5 +1,4 @@
 package com.example.perfumariaapi.api.controller;
-import com.example.perfumariaapi.api.dto.ClienteDTO;
 import com.example.perfumariaapi.api.dto.ItemDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
@@ -60,6 +59,33 @@ public class ItemController {
             Item item = converter(dto);
             item = service.salvar(item);
             return new ResponseEntity(item, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ItemDTO dto) {
+        if (!service.getItemById(id).isPresent()) {
+            return new ResponseEntity("Item não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Item item = converter(dto);
+            item.setId(id);
+            service.salvar(item);
+            return ResponseEntity.ok(item);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Item> item = service.getItemById(id);
+        if (!item.isPresent()) {
+            return new ResponseEntity("Item não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(item.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
