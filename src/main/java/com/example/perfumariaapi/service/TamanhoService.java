@@ -2,6 +2,7 @@ package com.example.perfumariaapi.service;
 
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Cliente;
+import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.model.repository.FornecedorRepository;
 
@@ -25,10 +26,11 @@ public class TamanhoService {
         return repository.findAll();
     }
 
-    public Optional<Tamanho> getTamanhoById(Long id) {
-        return repository.findById(id);
-    }
+    public Optional<Tamanho> getTamanhoById(Long id) { return repository.findById(id); }
 
+    public List<Tamanho> getTamanhoByProduto(Optional<Produto> produtos) {
+        return repository.findByProdutos(produtos);
+    }
 
     @Transactional
     public Tamanho salvar(Tamanho tamanho){

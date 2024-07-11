@@ -1,5 +1,4 @@
 package com.example.perfumariaapi.api.dto;
-import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Fornecedor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,6 @@ public class FornecedorDTO {
     private String cidade;
     private String uf;
     private String cep;
-    private Long idProduto;
 
     public static FornecedorDTO create(Fornecedor fornecedor) {
         ModelMapper modelMapper = new ModelMapper();

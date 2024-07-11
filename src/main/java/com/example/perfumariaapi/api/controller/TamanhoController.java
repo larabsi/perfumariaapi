@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 public class TamanhoController {
     private final TamanhoService service;
-    private final ProdutoService produtoService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -41,15 +40,7 @@ public class TamanhoController {
         }
         return ResponseEntity.ok(tamanho.map(TamanhoDTO::create));
     }
-    @GetMapping("{id}/produtos")
-    public ResponseEntity getProdutos(@PathVariable("id") Long id) {
-        Optional<Tamanho> tamanho = service.getTamanhoById(id);
-        if (!tamanho.isPresent()) {
-            return new ResponseEntity("Tamanho nao encontrado", HttpStatus.NOT_FOUND);
-        }
-        List<Produto> produtos = produtoService.getProdutosByTamanho(tamanho);
-        return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
-    }
+
     @PostMapping()
     public ResponseEntity post( @RequestBody TamanhoDTO dto) {
         try {
@@ -89,8 +80,10 @@ public class TamanhoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     public Tamanho converter(TamanhoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(dto, Tamanho.class);
     }
+
 }

@@ -27,8 +27,12 @@ public class Pedido {
     @ManyToOne
     private Fornecedor fornecedor;
 
-    @ManyToOne
-    private Pedido pedido;
+    @JsonIgnore
+    @OneToMany(mappedBy = "pedido")
+    private List<Fornecedor> fornecedores;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "pedido")
+    private List<Fornecedor> produtos;
 
 }

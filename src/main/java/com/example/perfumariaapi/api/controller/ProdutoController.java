@@ -1,10 +1,18 @@
 package com.example.perfumariaapi.api.controller;
 
+import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
+import com.example.perfumariaapi.api.dto.FragranciaDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
+import com.example.perfumariaapi.api.dto.TamanhoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
+import com.example.perfumariaapi.model.entity.Classificacao;
+import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
+import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.service.ClassificacaoService;
+import com.example.perfumariaapi.service.FragranciaService;
 import com.example.perfumariaapi.service.ProdutoService;
+import com.example.perfumariaapi.service.TamanhoService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -22,6 +30,9 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class ProdutoController {
     private final ProdutoService service;
+    private final TamanhoService tamanhoService;
+    private final ClassificacaoService classificacaoService;
+    private final FragranciaService fragranciaService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -36,6 +47,34 @@ public class ProdutoController {
             return new ResponseEntity("Produto não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(produto.map(ProdutoDTO::create));
+    }
+
+    @GetMapping("{id}/tamanhos")
+    public ResponseEntity getTamanhos(@PathVariable("id") Long id) {
+        Optional<Produto> produto = service.getProdutoById(id);
+        if (!produto.isPresent()) {
+            return new ResponseEntity("Tamanho nao encontrado", HttpStatus.NOT_FOUND);
+        }
+        List<Tamanho> tamanhos = tamanhoService.getTamanhoByProduto(produto);
+        return ResponseEntity.ok(tamanhos.stream().map(TamanhoDTO::create).collect(Collectors.toList()));
+    }
+    @GetMapping("{id}/classificacoes")
+    public ResponseEntity getClassificacao(@PathVariable("id") Long id) {
+        Optional<Produto> produto = service.getProdutoById(id);
+        if (!produto.isPresent()) {
+            return new ResponseEntity("Classificação não encontrada", HttpStatus.NOT_FOUND);
+        }
+        List<Classificacao> classificacao = classificacaoService.getClassificacoesByProduto(produto);
+        return ResponseEntity.ok(classificacao.stream().map(ClassificacaoDTO::create).collect(Collectors.toList()));
+    }
+    @GetMapping("{id}/fragrancias")
+    public ResponseEntity getFragrancias(@PathVariable("id") Long id) {
+        Optional<Produto> produto = service.getProdutoById(id);
+        if (!produto.isPresent()) {
+            return new ResponseEntity("Fragrancia não encontrada", HttpStatus.NOT_FOUND);
+        }
+        List<Fragrancia> fragrancias = fragranciaService.getCFragranciasByProduto(produto);
+        return ResponseEntity.ok(fragrancias.stream().map(FragranciaDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()

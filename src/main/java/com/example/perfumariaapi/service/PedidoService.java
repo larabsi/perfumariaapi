@@ -23,7 +23,6 @@ public class PedidoService {
         return repository.findByFornecedor(fornecedor);
     }
 
-
     @Transactional
     public Pedido salvar(Pedido pedido){
         validar(pedido);
@@ -36,21 +35,20 @@ public class PedidoService {
         Objects.requireNonNull(pedido.getId());
         repository.delete(pedido);
     }
+
     public void validar(Pedido pedido) {
-        if (pedido.getFornecedor()==null) {
+        if (pedido.getFornecedor() == null) {
             throw new RegraNegocioException("Forncedor inválido");
         }
-        if (pedido.getDataPedido()==null|| pedido.getDataPedido().trim().equals("")) {
+        if (pedido.getDataPedido() == null|| pedido.getDataPedido().trim().equals("")) {
             throw new RegraNegocioException("Data inválida");
         }
-        if (pedido.getValor()==null|| pedido.getValor().trim().equals("")) {
+        if (pedido.getValor() == null|| pedido.getValor().trim().equals("")) {
             throw new RegraNegocioException("Valor inválido");
         }
-        if (pedido.getProduto()==null) {
+        if (pedido.getProduto() == null) {
             throw new RegraNegocioException("Produto inválido");
         }
-
-
     }
 
 }

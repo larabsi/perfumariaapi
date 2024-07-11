@@ -1,4 +1,5 @@
 package com.example.perfumariaapi.api.controller;
+import com.example.perfumariaapi.api.dto.FornecedorDTO;
 import com.example.perfumariaapi.api.dto.PedidoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
@@ -52,6 +53,16 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("{id}/fornecedores")
+    public ResponseEntity getFornecedor(@PathVariable("id") Long id) {
+        Optional<Pedido> pedido = service.getPedidoById(id);
+        if (!pedido.isPresent()) {
+            return new ResponseEntity("Não existe fornecedor para esse pedido", HttpStatus.NOT_FOUND);
+        }
+        List<Fornecedor> fornecedor = fornecedorService.getFornecedoresByPedido(pedido);
+        return ResponseEntity.ok(fornecedor.stream().map(FornecedorDTO::create).collect(Collectors.toList()));
+    }
+
     @PutMapping("{id}")
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PedidoDTO dto) {
         if (!service.getPedidoById(id).isPresent()) {
@@ -83,18 +94,15 @@ public class PedidoController {
     public Pedido converter(PedidoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Pedido pedido = modelMapper.map(dto, Pedido.class);
-
         if(dto.getIdProduto() != null) {
             Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
             if(!produto.isPresent()){
-
                 pedido.setProduto(null);
             } else{ pedido.setProduto(produto.get());}
         }
         if(dto.getIdFornecedor() !=0) {
             Optional<Fornecedor> fornecedor = fornecedorService.getFornecedorById(dto.getIdFornecedor());
             if(!fornecedor.isPresent()){
-
                 pedido.setFornecedor(null);
             } else{ pedido.setFornecedor(fornecedor.get());}
         }

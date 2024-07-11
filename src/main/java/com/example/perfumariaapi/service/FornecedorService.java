@@ -3,6 +3,7 @@ package com.example.perfumariaapi.service;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Fornecedor;
+import com.example.perfumariaapi.model.entity.Pedido;
 import com.example.perfumariaapi.model.repository.FornecedorRepository;
 
 import jakarta.transaction.Transactional;
@@ -28,6 +29,9 @@ public class FornecedorService {
         return repository.findById(id);
     }
 
+    public List<Fornecedor> getFornecedoresByPedido(Optional<Pedido> pedido) {
+        return repository.findByPedido(pedido);
+    }
 
     @Transactional
     public Fornecedor salvar(Fornecedor fornecedor){

@@ -19,7 +19,6 @@ public class Tamanho {
     private Long id;
     private String volume;
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "tamanho")
     private List<Produto> produtos;

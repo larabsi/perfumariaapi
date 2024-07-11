@@ -45,16 +45,6 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedor.map(FornecedorDTO::create));
     }
 
-    @GetMapping("{id}/produtos")
-    public ResponseEntity getProdutos(@PathVariable("id") Long id) {
-        Optional<Fornecedor> fornecedor = service.getFornecedorById(id);
-        if (!fornecedor.isPresent()) {
-            return new ResponseEntity("Fornecedor não vende produto", HttpStatus.NOT_FOUND);
-        }
-        List<Produto> produtos = produtoService.getProdutosByFornecedor(fornecedor);
-        return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
-    }
-
     @GetMapping("{id}/pedidos")
     public ResponseEntity getPedidos(@PathVariable("id") Long id) {
         Optional<Fornecedor> fornecedor = service.getFornecedorById(id);
@@ -107,15 +97,6 @@ public class FornecedorController {
     public Fornecedor converter(FornecedorDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Fornecedor fornecedor = modelMapper.map(dto, Fornecedor.class);
-        if(dto.getIdProduto() != null) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
-            if(!produto.isPresent()){
-
-                fornecedor.setProduto(null);
-            } else{
-                fornecedor.setProduto(produto.get());
-            }
-        }
         return fornecedor;
     }
 }
