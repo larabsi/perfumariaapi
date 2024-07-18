@@ -17,7 +17,7 @@ public class VendaService {
     public Optional<Venda> getVendaById(Long id){ return repository.findById(id); }
     public List<Venda> getVendasByCliente(Optional<Cliente> cliente) { return repository.findByCliente(cliente); }
     public List<Venda> getVendasByFuncionario(Optional<Funcionario> funcionario) { return repository.findByFuncionario(funcionario); }
-    public List<Venda> getVendasByItem(Optional<Item> item) { return repository.findByItem(item); }
+    public List<Venda> getVendasByListaProdutosVenda(Optional<ListaProdutosVenda> listaProdutosVenda) { return repository.findByListaProdutosVenda(listaProdutosVenda); }
 
     @Transactional
     public Venda salvar(Venda venda){

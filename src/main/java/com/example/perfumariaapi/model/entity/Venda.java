@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Date;
+
 import java.util.List;
 
 @Data
@@ -40,5 +40,5 @@ public class Venda {
 
     @JsonIgnore
     @OneToMany(mappedBy = "venda")
-    private List<Item> item;
+    private List<ListaProdutosVenda> listaProdutosVenda;
 }
