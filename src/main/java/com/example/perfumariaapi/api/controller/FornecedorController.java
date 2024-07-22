@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 
 public class FornecedorController {
     private final FornecedorService service;
-    private final ProdutoService produtoService;
     private final PedidoService pedidoService;
 
     @GetMapping()

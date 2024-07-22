@@ -1,9 +1,11 @@
 package com.example.perfumariaapi.api.controller;
 import com.example.perfumariaapi.api.dto.FornecedorDTO;
+import com.example.perfumariaapi.api.dto.ListaPedidoDTO;
 import com.example.perfumariaapi.api.dto.PedidoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.FornecedorService;
+import com.example.perfumariaapi.service.ListaPedidoService;
 import com.example.perfumariaapi.service.PedidoService;
 import com.example.perfumariaapi.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,9 @@ import java.util.stream.Collectors;
 
 public class PedidoController {
     private final PedidoService service;
-    private final ProdutoService produtoService;
     private final FornecedorService fornecedorService;
+
+
 
     @GetMapping()
     public ResponseEntity get() {
@@ -54,12 +57,12 @@ public class PedidoController {
     }
 
     @GetMapping("{id}/fornecedores")
-    public ResponseEntity getFornecedor(@PathVariable("id") Long id) {
+    public ResponseEntity getFornecedores(@PathVariable("id") Long id) {
         Optional<Pedido> pedido = service.getPedidoById(id);
         if (!pedido.isPresent()) {
             return new ResponseEntity("Não existe fornecedor para esse pedido", HttpStatus.NOT_FOUND);
         }
-        List<Fornecedor> fornecedor = fornecedorService.getFornecedoresByPedido(pedido);
+        List<Fornecedor>fornecedor = fornecedorService.getFornecedoresByPedido(pedido);
         return ResponseEntity.ok(fornecedor.stream().map(FornecedorDTO::create).collect(Collectors.toList()));
     }
 
@@ -94,12 +97,6 @@ public class PedidoController {
     public Pedido converter(PedidoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Pedido pedido = modelMapper.map(dto, Pedido.class);
-        if(dto.getIdProduto() != null) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
-            if(!produto.isPresent()){
-                pedido.setProduto(null);
-            } else{ pedido.setProduto(produto.get());}
-        }
         if(dto.getIdFornecedor() !=0) {
             Optional<Fornecedor> fornecedor = fornecedorService.getFornecedorById(dto.getIdFornecedor());
             if(!fornecedor.isPresent()){

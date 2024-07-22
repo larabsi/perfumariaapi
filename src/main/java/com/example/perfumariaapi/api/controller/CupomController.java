@@ -5,6 +5,9 @@ import com.example.perfumariaapi.exception.RegraNegocioException;
 
 import com.example.perfumariaapi.service.CupomService;
 import com.example.perfumariaapi.model.entity.Cupom;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,11 @@ public class CupomController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes de um cupom")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cupom encontrado"),
+            @ApiResponse(code = 404, message = "Cupom não encontrado")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<Cupom> cupom = service.getCupomById(id);
         if (!cupom.isPresent()) {
@@ -38,6 +46,10 @@ public class CupomController {
     }
 
     @PostMapping()
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Cupom salvo com sucesso"),
+            @ApiResponse(code = 400, message = "Erro ao salvar o cupom")
+    })
     public ResponseEntity post(@RequestBody CupomDTO dto) {
         try {
             Cupom cupom = converter(dto);

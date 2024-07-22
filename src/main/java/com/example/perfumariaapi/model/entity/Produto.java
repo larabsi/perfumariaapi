@@ -20,6 +20,7 @@ public class Produto {
     private Long id;
     private String nome;
     private String codigoBarras;
+    private String capacidadeMaxima;
 
     @ManyToOne
     private Estoque estoque;
@@ -33,12 +34,10 @@ public class Produto {
     @ManyToOne
     private Fragrancia fragrancia;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "produto")
-    private List<Fornecedor> fornecedor;
+    @ManyToOne
+    private Fornecedor fornecedor;
 
-//   @JsonIgnore
-//   @OneToMany(mappedBy = "produto")
-//   private List<Estoque> estoques;
+
+
 
 }

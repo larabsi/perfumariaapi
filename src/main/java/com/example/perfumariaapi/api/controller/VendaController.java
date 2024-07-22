@@ -85,14 +85,6 @@ public class VendaController {
     public Venda converter(VendaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Venda venda = modelMapper.map(dto, Venda.class);
-        if(dto.getIdProduto() != null) {
-            Optional<Produto> produto= produtoService.getProdutoById(dto.getIdProduto());
-            if(!produto.isPresent()){
-                venda.setProduto(null);
-            } else{
-                venda.setProduto(produto.get());
-            }
-        }
         if(dto.getIdCliente() != null) {
             Optional<Cliente> cliente = clienteService.getClienteById(dto.getIdCliente());
             if(!cliente.isPresent()){
@@ -104,7 +96,7 @@ public class VendaController {
         if(dto.getIdFuncionario() != null) {
             Optional<Funcionario> funcionario = funcionarioService.getFuncionarioById(dto.getIdFuncionario());
             if (!funcionario.isPresent()) {
-                venda.setProduto(null);
+                venda.setListaProdutosVenda(null);
             } else {
                 venda.setFuncionario(funcionario.get());
             }
@@ -112,7 +104,7 @@ public class VendaController {
         if(dto.getIdCupom() != null) {
             Optional<Cupom> cupom = cupomService.getCupomById(dto.getIdCupom());
             if(!cupom.isPresent()){
-                venda.setProduto(null);
+                venda.setListaProdutosVenda(null);
             } else{
                 venda.setCupom(cupom.get());
             }

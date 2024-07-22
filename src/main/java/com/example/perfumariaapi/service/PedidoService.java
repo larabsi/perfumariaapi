@@ -1,8 +1,6 @@
 package com.example.perfumariaapi.service;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Cliente;
-import com.example.perfumariaapi.model.entity.Fornecedor;
-import com.example.perfumariaapi.model.entity.Pedido;
+import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.model.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,7 +13,7 @@ public class PedidoService {
 
     private PedidoRepository repository;
 
-    public PedidoService(PedidoRepository pedidoRepository){this.repository = pedidoRepository;}
+    public PedidoService(PedidoRepository repository){this.repository = repository;}
     public List<Pedido> getPedidos(){ return repository.findAll();}
 
     public Optional<Pedido> getPedidoById(Long id){ return repository.findById(id); }
@@ -46,9 +44,7 @@ public class PedidoService {
         if (pedido.getValor() == null|| pedido.getValor().trim().equals("")) {
             throw new RegraNegocioException("Valor inválido");
         }
-        if (pedido.getProduto() == null) {
-            throw new RegraNegocioException("Produto inválido");
-        }
+
     }
 
 }

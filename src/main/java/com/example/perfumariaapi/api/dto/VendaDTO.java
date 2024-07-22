@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +19,7 @@ public class VendaDTO {
     private Long idCupom;
     private Long idFuncionario;
     private Long idCliente;
-    private Long idProduto;
+    private Long idListaProdutosVenda;
 
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();

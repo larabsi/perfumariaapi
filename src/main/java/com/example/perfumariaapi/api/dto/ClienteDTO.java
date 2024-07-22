@@ -18,8 +18,6 @@ public class ClienteDTO {
     private String email;
     private String numeroTelefone;
     private String dataNascimento;
-    private Long idVendas;
-    private String data;
     public static ClienteDTO create(Cliente cliente) {
         ModelMapper modelMapper = new ModelMapper();
         ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);

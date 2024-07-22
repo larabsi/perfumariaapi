@@ -23,8 +23,5 @@ public class Estoque {
     @ManyToOne
     private Produto produto;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "estoque")
-    private List<Produto> produtos;
 
 }

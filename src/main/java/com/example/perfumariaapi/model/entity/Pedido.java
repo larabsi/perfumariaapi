@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,18 +22,12 @@ public class Pedido {
     private String dataPedido;
     private String dataEntrega;
 
-    @ManyToOne
-    private Produto produto;
 
     @ManyToOne
     private Fornecedor fornecedor;
+    @ManyToOne
+    private ListaPedido listaPedido;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "pedido")
-    private List<Fornecedor> fornecedores;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "pedido")
-    private List<Fornecedor> produtos;
 
 }

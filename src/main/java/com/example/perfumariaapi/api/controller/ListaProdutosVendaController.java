@@ -101,14 +101,7 @@ public class ListaProdutosVendaController {
             } else{
                 listaProdutosVenda.setProduto(produto.get());
             }
-        }
-        if(dto.getIdVendas() != null) {
-            Optional<Venda> venda = vendaService.getVendaById(dto.getIdVendas());
-            if(!venda.isPresent()){
-                listaProdutosVenda.setVenda(null);
-            } else{
-                listaProdutosVenda.setVenda(venda.get());
-            }
+
         }
         return listaProdutosVenda;
     }

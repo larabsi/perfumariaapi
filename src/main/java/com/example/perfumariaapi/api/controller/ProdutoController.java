@@ -59,7 +59,7 @@ public class ProdutoController {
         return ResponseEntity.ok(tamanhos.stream().map(TamanhoDTO::create).collect(Collectors.toList()));
     }
     @GetMapping("{id}/classificacoes")
-    public ResponseEntity getClassificacao(@PathVariable("id") Long id) {
+    public ResponseEntity getClassificacoes(@PathVariable("id") Long id) {
         Optional<Produto> produto = service.getProdutoById(id);
         if (!produto.isPresent()) {
             return new ResponseEntity("Classificação não encontrada", HttpStatus.NOT_FOUND);

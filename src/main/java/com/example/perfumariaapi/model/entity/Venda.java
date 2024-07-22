@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -24,21 +26,10 @@ public class Venda {
     @ManyToOne
     private Cupom cupom;
     @ManyToOne
-    private Produto produto;
-    @ManyToOne
     private Funcionario funcionario;
     @ManyToOne
     private Cliente cliente;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "venda")
-    private List<Cliente> clientes;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "venda")
-    private List<Funcionario> funcionarios;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "venda")
-    private List<ListaProdutosVenda> listaProdutosVenda;
+    @ManyToOne
+    private ListaProdutosVenda listaProdutosVenda;
 }

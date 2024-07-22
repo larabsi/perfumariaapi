@@ -35,9 +35,7 @@ public class VendaService {
         if (venda.getCliente() == null) {
             throw new RegraNegocioException("Venda inválida. Venda sem cliente");
         }
-//        if (venda.getItem() == null) {
-//            throw new RegraNegocioException("Itens inválidos");
-//        }
+
         if (venda.getFuncionario() == null) {
             throw new RegraNegocioException("Funcionário inválido");
         }
@@ -47,8 +45,8 @@ public class VendaService {
         if (venda.getFormaPagamento() == null) {
             throw new RegraNegocioException("Forma de Pagamento inválida");
         }
-        if (venda.getProduto() == null) {
-            throw new RegraNegocioException("Venda sem produtos");
+        if (venda.getListaProdutosVenda() == null) {
+            throw new RegraNegocioException("Lista de produto Inválida");
         }
     }
 

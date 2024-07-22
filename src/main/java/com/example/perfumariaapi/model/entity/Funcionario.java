@@ -26,6 +26,4 @@ public class Funcionario {
     private String cargo;
     private String salario;
 
-    @ManyToOne
-    private Venda venda;
 }

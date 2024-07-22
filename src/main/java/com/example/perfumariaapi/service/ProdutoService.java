@@ -25,7 +25,6 @@ public class ProdutoService {
     }
     public Optional<Produto> getProdutoById(Long id) { return repository.findById(id); }
     public List<Produto> getProdutosByEstoque(Optional<Estoque> estoques) { return repository.findByEstoque(estoques); }
-    public List<Produto> getProdutosByClassificacao(Optional<Classificacao> classificacao) { return repository.findByClassificacao(classificacao); }
     public List<Produto> getProdutosByFornecedor(Optional<Fornecedor> fornecedor) { return repository.findByFornecedor(fornecedor); }
     public List<Produto> getProdutosByFragrancia(Optional<Fragrancia> fragrancia) { return repository.findByFragrancia(fragrancia); }
     public List<Produto> getProdutosByTamanho(Optional<Tamanho> tamanho) { return repository.findByTamanho(tamanho); }
