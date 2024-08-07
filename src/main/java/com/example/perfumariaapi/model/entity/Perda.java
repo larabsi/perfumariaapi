@@ -14,6 +14,7 @@ public class Perda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String data;
+    private String descricao;
 
 
     @ManyToOne

@@ -4,6 +4,7 @@ import com.example.perfumariaapi.api.dto.FornecedorDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Fornecedor;
+import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.repository.ClassificacaoRepository;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.ClassificacaoService;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class ClassificacaoController {
     private final ClassificacaoService service;
-
+    private final ProdutoService produtoService;
     @GetMapping
     public ResponseEntity get() {
         List<Classificacao> classificacoes = service.getClassificacoes();
@@ -39,6 +40,15 @@ public class ClassificacaoController {
             return new ResponseEntity("Classificacao não encontrada", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(classificacao.map(ClassificacaoDTO::create));
+    }
+    @GetMapping("{id}/produtos")
+    public ResponseEntity getProdutos(@PathVariable("id") Long id) {
+        Optional<Classificacao> classificacao = service.getClassificacaoById(id);
+        if (!classificacao.isPresent()) {
+            return new ResponseEntity("Não existe produto com essa classificação", HttpStatus.NOT_FOUND);
+        }
+        List<Produto> produtos = produtoService.getProdutosByClassificacao(classificacao);
+        return ResponseEntity.ok(produtos.stream().map(ProdutoDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()

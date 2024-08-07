@@ -17,7 +17,7 @@ public class ClassificacaoService {
         public List<Classificacao> getClassificacoes(){ return repository.findAll();}
         public Optional<Classificacao> getClassificacaoById(Long id){ return repository.findById(id); }
         public List<Classificacao> getClassificacoesByProduto(Optional<Produto> produto) {
-                return repository.findByProduto(produto);
+                return repository.findByProdutos(produto);
         }
         @Transactional
         public Classificacao salvar(Classificacao classificacao){

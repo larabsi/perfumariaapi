@@ -30,6 +30,6 @@ public class Venda {
     @ManyToOne
     private Cliente cliente;
 
-    @ManyToOne
-    private ListaProdutosVenda listaProdutosVenda;
+
+
 }

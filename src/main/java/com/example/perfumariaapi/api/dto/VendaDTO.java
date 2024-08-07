@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class VendaDTO {
     private Long idCupom;
     private Long idFuncionario;
     private Long idCliente;
-    private Long idListaProdutosVenda;
+    private List<ListaProdutosVendaDTO> listaProdutosVenda;
 
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();

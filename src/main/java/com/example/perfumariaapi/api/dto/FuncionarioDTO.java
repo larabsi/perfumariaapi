@@ -23,8 +23,10 @@ public class FuncionarioDTO {
     private String uf;
     private String cep;
     private String numeroTelefone;
-    private String cargo;
     private String salario;
+    private Long idCargo;
+    private Long idEstado;
+
 
     public static FuncionarioDTO create(Funcionario funcionario) {
         ModelMapper modelMapper = new ModelMapper();

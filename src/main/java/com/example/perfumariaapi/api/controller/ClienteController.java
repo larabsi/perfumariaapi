@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class ClienteController {
     private final ClienteService service;
-    private final VendaService vendaService;
+
     private final ProdutoService produtoService;
 
     @GetMapping()
@@ -42,16 +42,6 @@ public class ClienteController {
             return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(cliente.map(ClienteDTO::create));
-    }
-
-    @GetMapping("{id}/vendas")
-    public ResponseEntity getVendas(@PathVariable("id") Long id) {
-        Optional<Cliente> cliente = service.getClienteById(id);
-        if (!cliente.isPresent()) {
-            return new ResponseEntity("Cliente não encontrada", HttpStatus.NOT_FOUND);
-        }
-        List<Venda> vendas = vendaService.getVendasByCliente(cliente);
-        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()

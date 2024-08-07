@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface VendaRepository extends JpaRepository<Venda, Long> {
     List<Venda> findByCliente(Optional<Cliente> cliente);
     List<Venda> findByFuncionario(Optional<Funcionario> funcionario);
-    List<Venda> findByListaProdutosVenda(Optional<ListaProdutosVenda> listaProdutosVenda);
 }

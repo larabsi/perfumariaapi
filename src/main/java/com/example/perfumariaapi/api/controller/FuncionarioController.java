@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class FuncionarioController {
     private final FuncionarioService service;
-    private final VendaService vendaService;
+
 
     @GetMapping()
     public ResponseEntity get() {
@@ -43,15 +43,6 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionario.map(FuncionarioDTO::create));
     }
 
-    @GetMapping("{id}/vendas")
-    public ResponseEntity getVendas(@PathVariable("id") Long id) {
-        Optional<Funcionario> funcionario = service.getFuncionarioById(id);
-        if (!funcionario.isPresent()) {
-            return new ResponseEntity("Funcionário não encontrada", HttpStatus.NOT_FOUND);
-        }
-        List<Venda> vendas = vendaService.getVendasByFuncionario(funcionario);
-        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
-    }
 
     @PostMapping()
     public ResponseEntity post(@RequestBody FuncionarioDTO dto) {

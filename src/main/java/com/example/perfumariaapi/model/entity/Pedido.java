@@ -23,11 +23,8 @@ public class Pedido {
     private String dataEntrega;
 
 
+
     @ManyToOne
     private Fornecedor fornecedor;
-    @ManyToOne
-    private ListaPedido listaPedido;
-
-
 
 }

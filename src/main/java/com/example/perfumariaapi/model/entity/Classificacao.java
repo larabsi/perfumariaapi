@@ -21,6 +21,7 @@ public class Classificacao {
     private Long id;
     private String descricao;
 
-@ManyToOne
-private Produto produto;
+    @JsonIgnore
+    @OneToMany(mappedBy = "classificacao")
+    private List<Produto> produtos;
 }

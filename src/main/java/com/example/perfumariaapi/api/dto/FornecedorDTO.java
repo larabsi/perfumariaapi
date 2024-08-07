@@ -21,6 +21,8 @@ public class FornecedorDTO {
     private String cidade;
     private String uf;
     private String cep;
+    private Long idEstado;
+
 
     public static FornecedorDTO create(Fornecedor fornecedor) {
         ModelMapper modelMapper = new ModelMapper();

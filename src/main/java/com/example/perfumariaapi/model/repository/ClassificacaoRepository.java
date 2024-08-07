@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClassificacaoRepository extends JpaRepository<Classificacao, Long> {
-    List<Classificacao> findByProduto(Optional<Produto> produto);
+    List<Classificacao> findByProdutos(Optional<Produto> produto);
 }
 
 

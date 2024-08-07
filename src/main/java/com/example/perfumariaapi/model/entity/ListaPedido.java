@@ -22,6 +22,9 @@ public class ListaPedido {
     @ManyToOne
     private Produto produto;
 
+    @ManyToOne
+    @JoinColumn (name="pedido_id")
+    private Pedido pedido;
 
 
 }

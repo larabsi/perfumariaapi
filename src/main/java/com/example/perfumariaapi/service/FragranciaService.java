@@ -1,8 +1,6 @@
 package com.example.perfumariaapi.service;
 
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Classificacao;
-import com.example.perfumariaapi.model.entity.Cupom;
 import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.repository.FragranciaRepository;

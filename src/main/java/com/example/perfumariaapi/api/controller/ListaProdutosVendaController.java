@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class ListaProdutosVendaController {
     private final ListaProdutosVendaService service;
-    private final VendaService vendaService;
+
     private final ProdutoService produtoService;
 
     @GetMapping()
@@ -41,16 +41,6 @@ public class ListaProdutosVendaController {
             return new ResponseEntity("Lista não encontrada", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(listaProdutosVenda.map(ListaProdutosVendaDTO::create));
-    }
-
-    @GetMapping("{id}/vendas")
-    public ResponseEntity getVendas(@PathVariable("id") Long id) {
-        Optional<ListaProdutosVenda> listaProdutosVenda = service.getListaProdutosVendaById(id);
-        if (!listaProdutosVenda.isPresent()) {
-            return new ResponseEntity("Lista não encontrada", HttpStatus.NOT_FOUND);
-        }
-        List<Venda> vendas = vendaService.getVendasByListaProdutosVenda(listaProdutosVenda);
-        return ResponseEntity.ok(vendas.stream().map(VendaDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()

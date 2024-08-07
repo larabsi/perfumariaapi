@@ -31,4 +31,6 @@ public class Fornecedor {
 
     @ManyToOne
     private Pedido pedido;
+    @ManyToOne
+    private Estado endereco;
 }

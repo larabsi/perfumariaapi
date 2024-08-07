@@ -28,6 +28,7 @@ public class ProdutoService {
     public List<Produto> getProdutosByFornecedor(Optional<Fornecedor> fornecedor) { return repository.findByFornecedor(fornecedor); }
     public List<Produto> getProdutosByFragrancia(Optional<Fragrancia> fragrancia) { return repository.findByFragrancia(fragrancia); }
     public List<Produto> getProdutosByTamanho(Optional<Tamanho> tamanho) { return repository.findByTamanho(tamanho); }
+    public List<Produto> getProdutosByClassificacao(Optional<Classificacao> classificacao) { return repository.findByClassificacao(classificacao); }
 
     @Transactional
     public Produto salvar(Produto produto){

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,8 +16,8 @@ public class PedidoDTO {
     private String valor;
     private String dataPedido;
     private String dataEntrega;
-    private Long idListaPedido;
     private Long idFornecedor;
+    private List<ListaPedidoDTO> listaPedido;
 
 
     public static PedidoDTO create(Pedido pedido) {

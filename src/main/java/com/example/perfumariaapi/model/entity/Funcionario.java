@@ -23,7 +23,11 @@ public class Funcionario {
     private String uf;
     private String cep;
     private String numeroTelefone;
-    private String cargo;
     private String salario;
 
+    @ManyToOne
+    private Cargo cargo;
+
+    @ManyToOne
+    private Estado endereco;
 }

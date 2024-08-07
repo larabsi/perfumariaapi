@@ -42,7 +42,7 @@ public class CupomService {
         if (cupom.getCodigo() == null || cupom.getCodigo().trim().equals("")) {
             throw new RegraNegocioException("Cupom inválido");
         }
-        if (cupom.getDataExpiracao() == null || cupom.getDataExpiracao().trim().equals("")) {
+        if (cupom.getDataExpiracao() == null ) {
             throw new RegraNegocioException("Data de Expiração inválida");
         }
         if (cupom.getDesconto()== null || cupom.getDesconto().trim().equals("")) {

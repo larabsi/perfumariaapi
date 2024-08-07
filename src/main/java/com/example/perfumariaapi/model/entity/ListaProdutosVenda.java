@@ -17,4 +17,8 @@ public class ListaProdutosVenda {
     @ManyToOne
     private Produto produto;
 
+    @ManyToOne
+    @JoinColumn (name="venda_id")
+    private Venda venda;
+
 }
