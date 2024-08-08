@@ -13,8 +13,9 @@ import org.modelmapper.ModelMapper;
 public class PerdaDTO {
     private Long id;
     private String data;
-    private String descricao;
+    private Long idTipoPerda;
     private Long idProduto;
+    private String codigoBarras;
 
     public static PerdaDTO create(Perda perda) {
         ModelMapper modelMapper = new ModelMapper();

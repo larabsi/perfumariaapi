@@ -14,10 +14,12 @@ public class Perda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String data;
-    private String descricao;
+    private String codigoBarras;
 
 
     @ManyToOne
     private Produto produto;
+    @ManyToOne
+    private TipoPerda tipoPerda;
 
 }
