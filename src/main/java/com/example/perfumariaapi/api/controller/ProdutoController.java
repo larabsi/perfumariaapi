@@ -5,14 +5,8 @@ import com.example.perfumariaapi.api.dto.FragranciaDTO;
 import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.api.dto.TamanhoDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
-import com.example.perfumariaapi.model.entity.Classificacao;
-import com.example.perfumariaapi.model.entity.Fragrancia;
-import com.example.perfumariaapi.model.entity.Produto;
-import com.example.perfumariaapi.model.entity.Tamanho;
-import com.example.perfumariaapi.service.ClassificacaoService;
-import com.example.perfumariaapi.service.FragranciaService;
-import com.example.perfumariaapi.service.ProdutoService;
-import com.example.perfumariaapi.service.TamanhoService;
+import com.example.perfumariaapi.model.entity.*;
+import com.example.perfumariaapi.service.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -33,6 +27,7 @@ public class ProdutoController {
     private final TamanhoService tamanhoService;
     private final ClassificacaoService classificacaoService;
     private final FragranciaService fragranciaService;
+    private final EstoqueService estoqueService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -119,6 +114,30 @@ public class ProdutoController {
     public Produto converter(ProdutoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Produto produto = modelMapper.map(dto, Produto.class);
+        if(dto.getIdClassificacao() != null) {
+            Optional<Classificacao> classificacao = classificacaoService.getClassificacaoById(dto.getIdClassificacao());
+            if(!classificacao.isPresent()){
+                produto.setClassificacao(null);
+            }else {
+                produto.setClassificacao(classificacao.get());
+            }
+        }
+        if(dto.getIdFragrancia() != null) {
+            Optional<Fragrancia> fragrancia = fragranciaService.getFragranciaById(dto.getIdFragrancia());
+            if(!fragrancia.isPresent()){
+                produto.setFragrancia(null);
+            }else {
+                produto.setFragrancia(fragrancia.get());
+            }
+        }
+        if(dto.getIdTamanho() != null) {
+            Optional<Tamanho> tamanho = tamanhoService.getTamanhoById(dto.getIdTamanho());
+            if(!tamanho.isPresent()){
+                produto.setTamanho(null);
+            }else {
+                produto.setTamanho(tamanho.get());
+            }
+        }
         return produto;
     }
 

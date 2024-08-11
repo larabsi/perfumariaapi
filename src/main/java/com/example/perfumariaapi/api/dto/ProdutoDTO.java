@@ -11,9 +11,8 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class ProdutoDTO {
     private Long id;
-    private String nome;
+    private String produto;
     private String codigoBarras;
-    private Long idEstoque;
     private Long idTamanho;
     private Long idClassificacao;
     private Long idFragrancia;

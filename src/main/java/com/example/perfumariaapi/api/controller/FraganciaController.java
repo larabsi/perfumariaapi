@@ -62,6 +62,7 @@ public class FraganciaController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PutMapping("{id}")
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody  FragranciaDTO dto) {
         if (!service.getFragranciaById(id).isPresent()) {
@@ -92,7 +93,6 @@ public class FraganciaController {
     public Fragrancia converter(FragranciaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(dto, Fragrancia.class);
-
     }
 
 }

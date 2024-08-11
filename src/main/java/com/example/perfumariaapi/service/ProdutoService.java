@@ -24,7 +24,6 @@ public class ProdutoService {
         return repository.findAll();
     }
     public Optional<Produto> getProdutoById(Long id) { return repository.findById(id); }
-    public List<Produto> getProdutosByEstoque(Optional<Estoque> estoques) { return repository.findByEstoque(estoques); }
     public List<Produto> getProdutosByFornecedor(Optional<Fornecedor> fornecedor) { return repository.findByFornecedor(fornecedor); }
     public List<Produto> getProdutosByFragrancia(Optional<Fragrancia> fragrancia) { return repository.findByFragrancia(fragrancia); }
     public List<Produto> getProdutosByTamanho(Optional<Tamanho> tamanho) { return repository.findByTamanho(tamanho); }
@@ -43,7 +42,7 @@ public class ProdutoService {
     }
 
     public void validar(Produto produto) {
-        if (produto.getNome() == null || produto.getNome().trim().equals("")) {
+        if (produto.getProduto() == null || produto.getProduto().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
         if (produto.getClassificacao() == null) {

@@ -39,7 +39,7 @@ public class ListaProdutosVendaService {
     }
 
     public void validar(ListaProdutosVenda listaProdutosVenda) {
-        if (listaProdutosVenda.getProduto() == null || listaProdutosVenda.getProduto().getNome().trim().equals("")) {
+        if (listaProdutosVenda.getProduto() == null || listaProdutosVenda.getProduto().getProduto().trim().equals("")) {
             throw new RegraNegocioException(" Produto Null");
         }
     }

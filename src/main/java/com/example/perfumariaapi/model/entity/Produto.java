@@ -18,12 +18,9 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
+    private String produto;
     private String codigoBarras;
     private String capacidadeMaxima;
-
-    @ManyToOne
-    private Estoque estoque;
 
     @ManyToOne
     private Tamanho tamanho;
@@ -36,8 +33,4 @@ public class Produto {
 
     @ManyToOne
     private Fornecedor fornecedor;
-
-
-
-
 }
