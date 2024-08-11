@@ -20,7 +20,6 @@ public class Funcionario {
     private String complemento;
     private String bairro;
     private String cidade;
-    private String uf;
     private String cep;
     private String numeroTelefone;
     private String salario;
@@ -29,5 +28,5 @@ public class Funcionario {
     private Cargo cargo;
 
     @ManyToOne
-    private Estado endereco;
+    private Estado estado;
 }

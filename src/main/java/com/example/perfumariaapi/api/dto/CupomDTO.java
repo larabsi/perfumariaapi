@@ -16,7 +16,8 @@ public class CupomDTO {
 
     public static CupomDTO create(Cupom cupom) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(cupom, CupomDTO.class);
+        CupomDTO dto = modelMapper.map(cupom, CupomDTO.class);
+        return dto;
     }
 
 }

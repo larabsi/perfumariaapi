@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
 public class ClienteController {
     private final ClienteService service;
 
-    private final ProdutoService produtoService;
-
     @GetMapping()
     public ResponseEntity get() {
         List<Cliente> clientes = service.getClientes();

@@ -1,4 +1,5 @@
 package com.example.perfumariaapi.api.dto;
+import com.example.perfumariaapi.model.entity.Cargo;
 import com.example.perfumariaapi.model.entity.Classificacao;
 import com.example.perfumariaapi.model.entity.Funcionario;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,6 @@ public class FuncionarioDTO {
     private String complemento;
     private String bairro;
     private String cidade;
-    private String uf;
     private String cep;
     private String numeroTelefone;
     private String salario;

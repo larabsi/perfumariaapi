@@ -28,8 +28,6 @@ public class PedidoController {
     private final PedidoService service;
     private final FornecedorService fornecedorService;
 
-
-
     @GetMapping()
     public ResponseEntity get() {
         List<Pedido> pedidos = service.getPedidos();
@@ -94,10 +92,11 @@ public class PedidoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     public Pedido converter(PedidoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Pedido pedido = modelMapper.map(dto, Pedido.class);
-        if(dto.getIdFornecedor() !=0) {
+        if(dto.getIdFornecedor() != 0) {
             Optional<Fornecedor> fornecedor = fornecedorService.getFornecedorById(dto.getIdFornecedor());
             if(!fornecedor.isPresent()){
                 pedido.setFornecedor(null);

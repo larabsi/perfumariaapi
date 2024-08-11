@@ -1,11 +1,13 @@
 package com.example.perfumariaapi.api.controller;
 
 import com.example.perfumariaapi.api.dto.FuncionarioDTO;
+import com.example.perfumariaapi.api.dto.ProdutoDTO;
 import com.example.perfumariaapi.api.dto.VendaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 
-import com.example.perfumariaapi.model.entity.Funcionario;
-import com.example.perfumariaapi.model.entity.Venda;
+import com.example.perfumariaapi.model.entity.*;
+import com.example.perfumariaapi.service.CargoService;
+import com.example.perfumariaapi.service.EstadoService;
 import com.example.perfumariaapi.service.FuncionarioService;
 import com.example.perfumariaapi.service.VendaService;
 
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 
 public class FuncionarioController {
     private final FuncionarioService service;
+    private final CargoService cargoService;
+    private final EstadoService estadoService;
 
 
     @GetMapping()
@@ -43,11 +47,12 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionario.map(FuncionarioDTO::create));
     }
 
-
     @PostMapping()
     public ResponseEntity post(@RequestBody FuncionarioDTO dto) {
         try {
             Funcionario funcionario = converter(dto);
+            Cargo cargo = cargoService.salvar(funcionario.getCargo());
+            funcionario.setCargo(cargo);
             funcionario = service.salvar(funcionario);
             return new ResponseEntity(funcionario, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
@@ -85,6 +90,22 @@ public class FuncionarioController {
     public Funcionario converter(FuncionarioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Funcionario funcionario = modelMapper.map(dto, Funcionario.class);
+        if(dto.getIdCargo() != null) {
+            Optional<Cargo> cargo = cargoService.getCargoById(dto.getIdCargo());
+            if(!cargo.isPresent()){
+                funcionario.setCargo(null);
+            }else {
+                funcionario.setCargo(cargo.get());
+            }
+        }
+        if(dto.getIdEstado() != null) {
+            Optional<Estado> estado = estadoService.getEstadoById(dto.getIdEstado());
+            if(!estado.isPresent()){
+                funcionario.setEstado(null);
+            }else {
+                funcionario.setEstado(estado.get());
+            }
+        }
         return funcionario;
     }
 

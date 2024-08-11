@@ -46,8 +46,6 @@ public class FuncionarioService {
         if (funcionario.getSalario()== null) {
             throw new RegraNegocioException("Salário inválido");
         }
-
-
     }
 
 }

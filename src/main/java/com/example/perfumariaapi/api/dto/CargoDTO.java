@@ -14,7 +14,6 @@ public class CargoDTO {
     private Long id;
     private String cargo;
 
-
     public static CargoDTO create(Cargo cargo) {
         ModelMapper modelMapper = new ModelMapper();
         CargoDTO dto = modelMapper.map(cargo, CargoDTO.class);

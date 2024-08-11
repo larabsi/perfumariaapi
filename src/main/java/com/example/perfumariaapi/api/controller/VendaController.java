@@ -97,11 +97,15 @@ public class VendaController {
             Optional<Funcionario> funcionario = funcionarioService.getFuncionarioById(dto.getIdFuncionario());
             if (!funcionario.isPresent())  {
                 venda.setFuncionario(funcionario.get());
+            }else{
+                venda.setFuncionario(funcionario.get());
             }
         }
         if(dto.getIdCupom() != null) {
             Optional<Cupom> cupom = cupomService.getCupomById(dto.getIdCupom());
             if(!cupom.isPresent()){
+                venda.setCupom(cupom.get());
+            }else{
                 venda.setCupom(cupom.get());
             }
         }
