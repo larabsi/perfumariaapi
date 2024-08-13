@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/cupons")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CupomController {
     private final CupomService service;
 
