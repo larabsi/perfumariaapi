@@ -44,6 +44,9 @@ public class PedidoService {
         if (pedido.getValor() == null|| pedido.getValor().trim().equals("")) {
             throw new RegraNegocioException("Valor inválido");
         }
+        if (pedido.getDataEntrega()== null|| pedido.getDataEntrega().trim().equals("")) {
+            throw new RegraNegocioException("Data entrega inválido");
+        }
 
     }
 

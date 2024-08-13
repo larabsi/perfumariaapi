@@ -40,7 +40,7 @@ public class CupomService {
     }
     public void validar(Cupom cupom) {
         if (cupom.getCodigo() == null || cupom.getCodigo().trim().equals("")) {
-            throw new RegraNegocioException("Cupom inválido");
+            throw new RegraNegocioException("Codigo inválido");
         }
         if (cupom.getDataExpiracao() == null ) {
             throw new RegraNegocioException("Data de Expiração inválida");

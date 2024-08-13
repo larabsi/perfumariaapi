@@ -13,6 +13,7 @@ import java.util.Optional;
 
 
 
+
 @Service
 public class EstoqueService {
 
@@ -35,10 +36,19 @@ public class EstoqueService {
     }
     public void validar(Estoque estoque) {
         if (estoque.getProduto()==null ) {
-            throw new RegraNegocioException("Estoque inválido");
+            throw new RegraNegocioException("Produto inválido");
         }
         if (estoque.getQuantidade() == null ) {
             throw new RegraNegocioException("Quantidade inválida");
+        }
+        if (estoque.getCapacidadeMaxima() == null ) {
+            throw new RegraNegocioException("Capacidade Maxima inválida");
+        }
+        if (estoque.getCapacidadeMinima() == null ) {
+            throw new RegraNegocioException("Capacidade minima inválida");
+        }
+        if (estoque.getPontoDeRessuprimento() ==null ) {
+            throw new RegraNegocioException("Ponto de ressuprimento inválido");
         }
     }
 

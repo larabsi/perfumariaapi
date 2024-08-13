@@ -45,7 +45,7 @@ public class TamanhoService {
     }
 
     public void validar(Tamanho tamanho) {
-        if (tamanho.getVolume()==null) {
+        if (tamanho.getVolume()==null ||tamanho.getVolume().trim().equals("")) {
             throw new RegraNegocioException("Tamanho inválido");
         }
     }

@@ -47,15 +47,16 @@ public class FornecedorService {
     }
     public void validar(Fornecedor fornecedor) {
         if (fornecedor.getCnpj()==null) {
-            throw new RegraNegocioException("Fornecedor inválido");
+            throw new RegraNegocioException("Cnpj inválido");
         }
         if (fornecedor.getNome()==null|| fornecedor.getNome().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
         if (fornecedor.getNumeroTelefone()==null|| fornecedor.getNumeroTelefone().trim().equals("")) {
-            throw new RegraNegocioException("Nome inválido");
+            throw new RegraNegocioException("Número de telefone inválido");
         }
-
-
+        if (fornecedor.getEmail()==null|| fornecedor.getEmail().trim().equals("")) {
+            throw new RegraNegocioException("Email inválido");
+        }
     }
 }

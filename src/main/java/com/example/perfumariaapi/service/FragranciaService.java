@@ -41,7 +41,7 @@ public class FragranciaService {
         repository.delete(fragrancia);
     }
     public void validar(Fragrancia fragrancia) {
-        if (fragrancia.getDescricao() == null ) {
+        if (fragrancia.getDescricao() == null ||fragrancia.getDescricao().trim().equals("")) {
             throw new RegraNegocioException("Fragrancia inválida");
         }
 

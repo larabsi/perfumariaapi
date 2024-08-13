@@ -34,7 +34,6 @@ public class VendaService {
         if (venda.getCliente() == null) {
             throw new RegraNegocioException("Venda inválida. Venda sem cliente");
         }
-
         if (venda.getFuncionario() == null) {
             throw new RegraNegocioException("Funcionário inválido");
         }
@@ -43,6 +42,9 @@ public class VendaService {
         }
         if (venda.getFormaPagamento() == null) {
             throw new RegraNegocioException("Forma de Pagamento inválida");
+        }
+        if (venda.getData() == null) {
+            throw new RegraNegocioException("Data inválida");
         }
 
     }

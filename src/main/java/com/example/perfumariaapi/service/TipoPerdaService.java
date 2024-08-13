@@ -39,7 +39,7 @@ public class TipoPerdaService {
     }
 
     public void validar(TipoPerda tipoPerda) {
-        if (tipoPerda.getDescricao()==null) {
+        if (tipoPerda.getDescricao()==null|| tipoPerda.getDescricao().trim().equals("")) {
             throw new RegraNegocioException("Descrição inválida");
         }
     }

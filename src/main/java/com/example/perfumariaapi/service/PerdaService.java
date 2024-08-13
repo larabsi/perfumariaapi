@@ -52,6 +52,9 @@ public class PerdaService {
         if (perda.getData()==null|| perda.getData().trim().equals("")) {
             throw new RegraNegocioException("Data inválida");
         }
+        if (perda.getCodigoBarras()==null|| perda.getCodigoBarras().trim().equals("")) {
+            throw new RegraNegocioException("Codigo de barras inválido");
+        }
 
 
     }

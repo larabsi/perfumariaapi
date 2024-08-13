@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.Objects;
 
 
+
+
 @Service
 public class ProdutoService {
     private static ProdutoRepository repository;
@@ -45,15 +47,19 @@ public class ProdutoService {
         if (produto.getProduto() == null || produto.getProduto().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
-        if (produto.getClassificacao() == null) {
-            throw new RegraNegocioException("Classificacao inválido");
+        if (produto.getClassificacao() == null ) {
+            throw new RegraNegocioException("Classificacao inválida");
         }
-        if (produto.getFragrancia() == null) {
+        if (produto.getFragrancia() == null ) {
             throw new RegraNegocioException("Fragrancia inválida");
         }
         if (produto.getTamanho() == null) {
             throw new RegraNegocioException("Tamanho inválido");
         }
+        if (produto.getCodigoBarras() == null) {
+            throw new RegraNegocioException("Codigo de barras inválido");
+        }
+
 
     }
 }
