@@ -27,6 +27,11 @@ public class CupomController {
     private final CupomService service;
 
     @GetMapping()
+    @ApiOperation("Visualizar um cupom")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cupom encontrado"),
+            @ApiResponse(code = 404, message = "Cupom não encontrado")
+    })
     public ResponseEntity get() {
         List<Cupom> cupons = service.getCupons();
         return ResponseEntity.ok(cupons.stream().map(CupomDTO::create).collect(Collectors.toList()));
@@ -47,6 +52,7 @@ public class CupomController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar um novo cupom")
     @ApiResponses({
             @ApiResponse(code = 201, message = "Cupom salvo com sucesso"),
             @ApiResponse(code = 400, message = "Erro ao salvar o cupom")
@@ -62,6 +68,11 @@ public class CupomController {
     }
 
     @PutMapping("{id}")
+    @ApiOperation("Atualizar cupom")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Cupom atualizado com sucesso"),
+            @ApiResponse(code = 400, message = "Erro ao atualizar o cupom")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CupomDTO dto) {
         if (!service.getCupomById(id).isPresent()) {
             return new ResponseEntity("Cupom não encontrado", HttpStatus.NOT_FOUND);
@@ -77,6 +88,11 @@ public class CupomController {
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar cupom")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Cupom excluido com sucesso"),
+            @ApiResponse(code = 400, message = "Erro ao excluir o cupom")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<Cupom> cupom = service.getCupomById(id);
         if (!cupom.isPresent()) {

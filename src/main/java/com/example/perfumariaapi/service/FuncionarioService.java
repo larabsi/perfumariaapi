@@ -5,7 +5,7 @@ import com.example.perfumariaapi.model.entity.Cliente;
 import com.example.perfumariaapi.model.entity.Fornecedor;
 import com.example.perfumariaapi.model.entity.Funcionario;
 import com.example.perfumariaapi.model.repository.FuncionarioRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 

@@ -2,7 +2,7 @@ package com.example.perfumariaapi.service;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.model.repository.VendaRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;

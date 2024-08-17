@@ -4,7 +4,7 @@ import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.model.entity.TipoPerda;
 import com.example.perfumariaapi.model.repository.TipoPerdaRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

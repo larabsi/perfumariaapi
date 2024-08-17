@@ -7,6 +7,9 @@ import com.example.perfumariaapi.service.ListaProdutosVendaService;
 import com.example.perfumariaapi.service.ProdutoService;
 import com.example.perfumariaapi.service.VendaService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -29,12 +32,22 @@ public class ListaProdutosVendaController {
     private final ProdutoService produtoService;
 
     @GetMapping()
+    @ApiOperation("Visualizar lista de produtos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de produtos encontrada"),
+            @ApiResponse(code = 404, message = "Lista de produtos não encontrada")
+    })
     public ResponseEntity get() {
         List<ListaProdutosVenda> listaProdutosVendas = service.getListaProdutosVenda();
         return ResponseEntity.ok(listaProdutosVendas.stream().map(ListaProdutosVendaDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes da lista de produtos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de produtos encontrada"),
+            @ApiResponse(code = 404, message = "Lista de produtos não encontrada")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<ListaProdutosVenda>listaProdutosVenda = service.getListaProdutosVendaById(id);
         if (!listaProdutosVenda.isPresent()) {
@@ -44,6 +57,11 @@ public class ListaProdutosVendaController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar uma nova lista de produtos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de produtos salva com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao salvar nova lista de produtos")
+    })
     public ResponseEntity post(@RequestBody ListaProdutosVendaDTO dto) {
         try {
             ListaProdutosVenda listaProdutosVenda = converter(dto);
@@ -54,6 +72,11 @@ public class ListaProdutosVendaController {
         }
     }
     @PutMapping("{id}")
+    @ApiOperation("Atualizar lista de produtos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de produtos atualizar com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar lista de produtos")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ListaProdutosVendaDTO dto) {
         if (!service.getListaProdutosVendaById(id).isPresent()) {
             return new ResponseEntity("Lista não encontrada", HttpStatus.NOT_FOUND);
@@ -68,6 +91,11 @@ public class ListaProdutosVendaController {
         }
     }
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar lista de produtos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de produtos excluído com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao excluir lista de produtos")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<ListaProdutosVenda> listaProdutosVenda = service.getListaProdutosVendaById(id);
         if (!listaProdutosVenda.isPresent()) {

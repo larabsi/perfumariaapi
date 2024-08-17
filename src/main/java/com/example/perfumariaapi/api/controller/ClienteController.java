@@ -8,6 +8,9 @@ import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.service.ClienteService;
 import com.example.perfumariaapi.service.ProdutoService;
 import com.example.perfumariaapi.service.VendaService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 
@@ -28,12 +31,22 @@ public class ClienteController {
     private final ClienteService service;
 
     @GetMapping()
+    @ApiOperation("Visualizar Cliente" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente encontrado"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado")
+    })
     public ResponseEntity get() {
         List<Cliente> clientes = service.getClientes();
         return ResponseEntity.ok(clientes.stream().map(ClienteDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes de um Cliente" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente encontrado"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<Cliente> cliente = service.getClienteById(id);
         if (!cliente.isPresent()) {
@@ -43,6 +56,11 @@ public class ClienteController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar um novo Cliente" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente salvo com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao salvar Cliente")
+    })
     public ResponseEntity post(@RequestBody ClienteDTO dto) {
         try {
             Cliente cliente = converter(dto);
@@ -53,6 +71,11 @@ public class ClienteController {
         }
     }
     @PutMapping("{id}")
+    @ApiOperation("Atualizar Cliente" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente atualizado com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar Cliente")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ClienteDTO dto) {
         if (!service.getClienteById(id).isPresent()) {
             return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
@@ -68,6 +91,11 @@ public class ClienteController {
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar Cliente" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente excluido com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao excluir Cliente")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
             Optional<Cliente> cliente = service.getClienteById(id);
         if (!cliente.isPresent()) {

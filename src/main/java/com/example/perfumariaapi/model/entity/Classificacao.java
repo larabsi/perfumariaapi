@@ -1,7 +1,7 @@
 package com.example.perfumariaapi.model.entity;
 import com.example.perfumariaapi.api.dto.ClassificacaoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

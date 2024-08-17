@@ -7,7 +7,7 @@ import com.example.perfumariaapi.model.entity.Tamanho;
 import com.example.perfumariaapi.model.repository.FornecedorRepository;
 
 import com.example.perfumariaapi.model.repository.TamanhoRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

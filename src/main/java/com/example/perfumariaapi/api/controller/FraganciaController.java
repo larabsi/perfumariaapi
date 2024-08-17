@@ -8,6 +8,9 @@ import com.example.perfumariaapi.model.entity.Fragrancia;
 import com.example.perfumariaapi.model.entity.Produto;
 import com.example.perfumariaapi.service.FragranciaService;
 import com.example.perfumariaapi.service.ProdutoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -28,12 +31,22 @@ public class FraganciaController {
     private final FragranciaService service;
     private final ProdutoService produtoService;
     @GetMapping()
+    @ApiOperation("Visualizar fragancia" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Fragancia encontrado"),
+            @ApiResponse(code = 404, message = "Fragancia não encontrado")
+    })
     public ResponseEntity get() {
         List<Fragrancia> fragrancias = service.getFragrancias();
         return ResponseEntity.ok(fragrancias.stream().map(FragranciaDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detahes de uma fragancia" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Fragancia encontrado"),
+            @ApiResponse(code = 404, message = "Fragancia não encontrado")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<Fragrancia> fragrancia = service.getFragranciaById(id);
         if (!fragrancia.isPresent()) {
@@ -53,6 +66,11 @@ public class FraganciaController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar uma nova fragancia" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Fragancia salva com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao salvar nova fragancia")
+    })
     public ResponseEntity post(@RequestBody FragranciaDTO dto) {
         try {
             Fragrancia fragrancia = converter(dto);
@@ -64,6 +82,11 @@ public class FraganciaController {
     }
 
     @PutMapping("{id}")
+    @ApiOperation("Atualizar fragancia" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Fragancia atualizada com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar fragancia")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody  FragranciaDTO dto) {
         if (!service.getFragranciaById(id).isPresent()) {
             return new ResponseEntity("Fragrancia não encontrado", HttpStatus.NOT_FOUND);
@@ -78,6 +101,11 @@ public class FraganciaController {
         }
     }
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar fragancia" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Fragancia excluída com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao exluir fragancia")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<Fragrancia> fragrancia = service.getFragranciaById(id);
         if (!fragrancia.isPresent()) {

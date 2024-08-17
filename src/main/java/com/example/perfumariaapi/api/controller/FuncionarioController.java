@@ -11,6 +11,9 @@ import com.example.perfumariaapi.service.EstadoService;
 import com.example.perfumariaapi.service.FuncionarioService;
 import com.example.perfumariaapi.service.VendaService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -33,12 +36,22 @@ public class FuncionarioController {
 
 
     @GetMapping()
+    @ApiOperation("Visualizar funcionário" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Funcionário encontrado"),
+            @ApiResponse(code = 404, message = "Funcionário não encontrado")
+    })
     public ResponseEntity get() {
         List<Funcionario> funcionarios = service.getFuncionario();
         return ResponseEntity.ok(funcionarios.stream().map(FuncionarioDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes de um funcionário" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Funcionário encontrado"),
+            @ApiResponse(code = 404, message = "Funcionário não encontrado")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<Funcionario> funcionario = service.getFuncionarioById(id);
         if (!funcionario.isPresent()) {
@@ -48,6 +61,11 @@ public class FuncionarioController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar um novo funcionário" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Funcionário salvo com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao salvar novo funcionário")
+    })
     public ResponseEntity post(@RequestBody FuncionarioDTO dto) {
         try {
             Funcionario funcionario = converter(dto);
@@ -60,6 +78,11 @@ public class FuncionarioController {
         }
     }
     @PutMapping("{id}")
+    @ApiOperation("Atualizar funcionário" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Funcionário atualizado com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar funcionário")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FuncionarioDTO dto) {
         if (!service.getFuncionarioById(id).isPresent()) {
             return new ResponseEntity("Funcionário não encontrado", HttpStatus.NOT_FOUND);
@@ -74,6 +97,11 @@ public class FuncionarioController {
         }
     }
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar funcionário" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Funcionário excluído com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao excluir funcionário")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<Funcionario> funcionario = service.getFuncionarioById(id);
         if (!funcionario.isPresent()) {

@@ -3,7 +3,7 @@ package com.example.perfumariaapi.service;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.*;
 import com.example.perfumariaapi.model.repository.ProdutoRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;

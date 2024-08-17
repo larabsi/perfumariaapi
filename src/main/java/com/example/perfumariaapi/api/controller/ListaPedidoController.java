@@ -10,6 +10,9 @@ import com.example.perfumariaapi.model.entity.ListaPedido;
 import com.example.perfumariaapi.model.entity.Pedido;
 import com.example.perfumariaapi.service.ListaPedidoService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -29,12 +32,22 @@ import java.util.stream.Collectors;
     private final ListaPedidoService service;
 
     @GetMapping()
+    @ApiOperation("Visualizar lista de pedidos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de pedidos encontrada"),
+            @ApiResponse(code = 404, message = "Lista de pedidos não encontrada")
+    })
     public ResponseEntity get() {
         List<ListaPedido> listaPedidos = service.getListaPedidos();
         return ResponseEntity.ok(listaPedidos.stream().map(ListaPedidoDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes da lista de pedidos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de pedidos encontrada"),
+            @ApiResponse(code = 404, message = "Lista de pedidos não encontrada")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<ListaPedido> listaPedido = service.getListaPedidoById(id);
         if (!listaPedido.isPresent()) {
@@ -44,6 +57,11 @@ import java.util.stream.Collectors;
     }
 
     @PostMapping()
+    @ApiOperation("Salvar uma nova lista de pedidos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de pedidos salva com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao savar nova lista de pedidos")
+    })
     public ResponseEntity post(@RequestBody ListaPedidoDTO dto) {
         try {
             ListaPedido listaPedido = converter(dto);
@@ -55,6 +73,11 @@ import java.util.stream.Collectors;
     }
 
     @PutMapping("{id}")
+    @ApiOperation("Atualizar lista de pedidos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de pedidos atualizada com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar lista de pedidos")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ListaPedidoDTO dto) {
         if (!service.getListaPedidoById(id).isPresent()) {
             return new ResponseEntity("Lista não encontrada", HttpStatus.NOT_FOUND);
@@ -70,6 +93,11 @@ import java.util.stream.Collectors;
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar lista de pedidos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lista de pedidos excluida com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao excluir lista de pedidos")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<ListaPedido> listaPedido = service.getListaPedidoById(id);
         if (!listaPedido.isPresent()) {

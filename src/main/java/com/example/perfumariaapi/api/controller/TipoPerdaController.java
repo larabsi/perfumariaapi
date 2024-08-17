@@ -4,6 +4,9 @@ import com.example.perfumariaapi.api.dto.TipoPerdaDTO;
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.TipoPerda;
 import com.example.perfumariaapi.service.TipoPerdaService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -23,12 +26,22 @@ public class TipoPerdaController {
     private final TipoPerdaService service;
 
     @GetMapping()
+    @ApiOperation("Visualizar Tipo de perda" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Tipo de perda encontrado"),
+            @ApiResponse(code = 404, message = "Tipo de perda não encontrado")
+    })
     public ResponseEntity get() {
         List<TipoPerda> tipoPerdas = service.getTipoPerdas();
         return ResponseEntity.ok(tipoPerdas.stream().map(TipoPerdaDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes de um Tipo de perda" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Tipo de perda encontrado"),
+            @ApiResponse(code = 404, message = "Tipo de perda não encontrado")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<TipoPerda> tipoPerda = service.getTipoPerdaById(id);
         if (!tipoPerda.isPresent()) {
@@ -38,6 +51,11 @@ public class TipoPerdaController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar Tipo de perda" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Tipo de perda salvo com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao salvar Tipo de perda")
+    })
     public ResponseEntity post( @RequestBody TipoPerdaDTO dto) {
         try {
             TipoPerda tipoPerda = converter(dto);
@@ -49,6 +67,11 @@ public class TipoPerdaController {
     }
 
     @PutMapping("{id}")
+    @ApiOperation("Atualizar Tipo de perda" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Tipo de perda atualizado com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar Tipo de perda")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody TipoPerdaDTO dto) {
         if (!service.getTipoPerdaById(id).isPresent()) {
             return new ResponseEntity("Tipo da perda não encontrado", HttpStatus.NOT_FOUND);
@@ -64,6 +87,11 @@ public class TipoPerdaController {
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar Tipo de perda" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Tipo de perda excluído com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao excluir Tipo de perda")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<TipoPerda> tipoPerda = service.getTipoPerdaById(id);
         if (!tipoPerda.isPresent()) {

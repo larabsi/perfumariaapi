@@ -8,6 +8,9 @@ import com.example.perfumariaapi.service.FornecedorService;
 import com.example.perfumariaapi.service.ListaPedidoService;
 import com.example.perfumariaapi.service.PedidoService;
 import com.example.perfumariaapi.service.ProdutoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
@@ -29,12 +32,22 @@ public class PedidoController {
     private final FornecedorService fornecedorService;
 
     @GetMapping()
+    @ApiOperation("Visualizar pedidos" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Pedidos encontrado"),
+            @ApiResponse(code = 404, message = "Pedidos não encontrado")
+    })
     public ResponseEntity get() {
         List<Pedido> pedidos = service.getPedidos();
         return ResponseEntity.ok(pedidos.stream().map(PedidoDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Obter detalhes de um pedido" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Pedidos encontrado"),
+            @ApiResponse(code = 404, message = "Pedidos não encontrado")
+    })
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<Pedido> pedido = service.getPedidoById(id);
         if (!pedido.isPresent()) {
@@ -44,6 +57,11 @@ public class PedidoController {
     }
 
     @PostMapping()
+    @ApiOperation("Salvar um novo pedido" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Pedido salvo co sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao salvar Pedido")
+    })
     public ResponseEntity post(@RequestBody PedidoDTO dto) {
         try {
             Pedido pedido = converter(dto);
@@ -65,6 +83,11 @@ public class PedidoController {
     }
 
     @PutMapping("{id}")
+    @ApiOperation("Atualizar pedido" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Pedido atualizado com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao atualizar Pedido")
+    })
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PedidoDTO dto) {
         if (!service.getPedidoById(id).isPresent()) {
             return new ResponseEntity("Pedido não encontrado", HttpStatus.NOT_FOUND);
@@ -80,6 +103,11 @@ public class PedidoController {
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation("Deletar pedido" )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Pedido excuído com sucesso"),
+            @ApiResponse(code = 404, message = "Erro ao excluir Pedido")
+    })
     public ResponseEntity excluir(@PathVariable("id") Long id) {
         Optional<Pedido> pedido = service.getPedidoById(id);
         if (!pedido.isPresent()) {
