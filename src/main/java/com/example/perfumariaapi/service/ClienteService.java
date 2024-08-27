@@ -2,7 +2,6 @@ package com.example.perfumariaapi.service;
 
 import com.example.perfumariaapi.exception.RegraNegocioException;
 import com.example.perfumariaapi.model.entity.Cliente;
-import com.example.perfumariaapi.model.entity.Cupom;
 import com.example.perfumariaapi.model.repository.ClienteRepository;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
