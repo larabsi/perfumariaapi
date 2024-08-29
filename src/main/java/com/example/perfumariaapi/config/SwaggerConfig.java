@@ -30,8 +30,8 @@ public class SwaggerConfig {
                         .basePackage("com.example.perfumariaapi.api.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                //.securityContexts(Arrays.asList(securityContext()))
-                // .securitySchemes(Arrays.asList(apiKey()))
+                .securityContexts(Arrays.asList(securityContext()))
+                 .securitySchemes(Arrays.asList(apiKey()))
                 .apiInfo(apiInfo());
     }
 
@@ -50,7 +50,7 @@ public class SwaggerConfig {
                 , "http://github.com/laraBsi",
                 "larasfe16@gmail.com");
     }
-   /* public ApiKey apiKey(){
+    public ApiKey apiKey(){
         return new ApiKey("", "", "");
     }
 
@@ -69,7 +69,7 @@ public class SwaggerConfig {
         List<SecurityReference> auths = new ArrayList<>();
         auths.add(reference);
         return auths;
-    }*/
+    }
 
 
 

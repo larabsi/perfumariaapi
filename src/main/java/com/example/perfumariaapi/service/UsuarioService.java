@@ -21,13 +21,15 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder encoder;
-
+    @Autowired
     private static UsuarioRepository repository;
 
     public UsuarioService(UsuarioRepository usuarioRepository){this.repository = usuarioRepository;}
     public List<Usuario> getUsuarios(){ return repository.findAll();}
 
     public Optional<Usuario> getUsuarioById(Long id){ return repository.findById(id); }
+
+
 
     @Transactional
     public Usuario salvar(Usuario usuario){
