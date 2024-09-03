@@ -51,7 +51,7 @@ public class SwaggerConfig {
                 "larasfe16@gmail.com");
     }
     public ApiKey apiKey(){
-        return new ApiKey("", "", "");
+        return new ApiKey("JWT", "Authorization", "header");
     }
 
     private SecurityContext securityContext(){

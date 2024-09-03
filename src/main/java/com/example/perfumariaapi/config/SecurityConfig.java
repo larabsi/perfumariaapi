@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -47,11 +48,11 @@ protected void configure(HttpSecurity http) throws Exception {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/api/v1/cargos/**")
-            .hasAnyRole( "ADMIN")
+            .permitAll()
             .antMatchers( "/api/v1/usuarios/**")
             .permitAll()
             .antMatchers("/api/v1/classificacoes/**")
-            .hasAnyRole( "ADMIN")
+            .permitAll()
             .antMatchers("/api/v1/clientes/**")
             .permitAll()
             .antMatchers("/api/v1/cupons/**")
@@ -73,15 +74,14 @@ protected void configure(HttpSecurity http) throws Exception {
             .antMatchers("/api/v1/pedidos/**")
             .permitAll()
             .antMatchers("/api/v1/perdas/**")
-            .permitAll()
-            .antMatchers("/api/v1/produtos/**")
+            .hasRole("ADMIN")            .antMatchers("/api/v1/produtos/**")
             .permitAll()
             .antMatchers("/api/v1/tamanhos/**")
             .permitAll()
             .antMatchers("/api/v1/tipoPerdas/**")
             .permitAll()
             .antMatchers("/api/v1/vendas/**")
-            .permitAll()
+            .hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
@@ -90,5 +90,15 @@ protected void configure(HttpSecurity http) throws Exception {
             .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
            ;
 }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
+    }
 
  }
