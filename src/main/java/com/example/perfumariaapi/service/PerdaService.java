@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Service
 public class PerdaService {
-    private PerdaRepository repository;
+    private final PerdaRepository repository;
 
     public PerdaService(PerdaRepository perdaRepository) {
         this.repository = perdaRepository;

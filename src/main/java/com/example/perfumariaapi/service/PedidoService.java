@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class PedidoService {
 
-    private PedidoRepository repository;
+    private final PedidoRepository repository;
 
     public PedidoService(PedidoRepository repository){this.repository = repository;}
     public List<Pedido> getPedidos(){ return repository.findAll();}

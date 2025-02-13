@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Micro\\Desktop\\perfumariaapi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Micro\\Desktop\\perfumariaapi\\src\\main\\java\\com\\example\\perfumariaapi\\api\\controller\\CargoController.java||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\java\\com\\example\\perfumariaapi\\api\\controller\\CargoController.java||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CargoController.java",
+              "DocumentMoniker": "C:\\Users\\Micro\\Desktop\\perfumariaapi\\src\\main\\java\\com\\example\\perfumariaapi\\api\\controller\\CargoController.java",
+              "RelativeDocumentMoniker": "src\\main\\java\\com\\example\\perfumariaapi\\api\\controller\\CargoController.java",
+              "ToolTip": "C:\\Users\\Micro\\Desktop\\perfumariaapi\\src\\main\\java\\com\\example\\perfumariaapi\\api\\controller\\CargoController.java",
+              "RelativeToolTip": "src\\main\\java\\com\\example\\perfumariaapi\\api\\controller\\CargoController.java",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADLSURBVDhPrZPBCoMwDEDT4WAfIHjx4NGPKOhf9GcGHnboZ/gFgn9UD168eRy7ZE2Q2s7imO7BI2loIwkobvcXwkGejyvA0uCQ9PZik1MEDYwxTgIRA5um4XqAP4JSyt5DlFLymdBaY13XbFEU7i65GWGaJo7jOHIkyrKEqqrYeZ6X6srXHaRpCvbLbJIkS3UlqGRZxjHPcxiGgfO\u002B76HrOs6j\u002BDvw\u002BTwTbdu6uyS/9Rv86maJR/hvAztm1D2CBkKIqHucHuHU7wwA8Aa/Eq38\u002BbQuCQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2025-01-22T21:34:55.049Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

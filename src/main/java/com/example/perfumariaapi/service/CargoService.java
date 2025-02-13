@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class CargoService {
-    private CargoRepository repository;
+    private final CargoRepository repository;
 
     public CargoService(CargoRepository repository)
     {this.repository = repository;

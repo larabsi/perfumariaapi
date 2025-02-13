@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class ListaPedidoService {
 
-    private ListaPedidoRepository repository;
+    private final ListaPedidoRepository repository;
 
     public ListaPedidoService(ListaPedidoRepository repository){
         this.repository = repository;

@@ -88,7 +88,6 @@ protected void configure(HttpSecurity http) throws Exception {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
-           ;
 }
     @Override
     public void configure(WebSecurity web) throws Exception {

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class FragranciaService {
-    private FragranciaRepository repository;
+    private final FragranciaRepository repository;
     public FragranciaService(FragranciaRepository repository) {
         this.repository = repository;
     }

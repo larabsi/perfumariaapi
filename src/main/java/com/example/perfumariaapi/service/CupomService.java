@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Service
 public class CupomService {
-    private CupomRepository repository;
+    private final CupomRepository repository;
 
     public CupomService(CupomRepository repository)
     {this.repository = repository;

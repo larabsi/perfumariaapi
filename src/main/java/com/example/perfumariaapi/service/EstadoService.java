@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 
 public class EstadoService {
-    private EstadoRepository repository;
+    private final EstadoRepository repository;
 
     public EstadoService(EstadoRepository repository)
     {this.repository = repository;

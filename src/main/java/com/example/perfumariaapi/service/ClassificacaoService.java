@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class ClassificacaoService {
-        private ClassificacaoRepository repository;
+        private final ClassificacaoRepository repository;
         public ClassificacaoService(ClassificacaoRepository repository){this.repository = repository;}
         public List<Classificacao> getClassificacoes(){ return repository.findAll();}
         public Optional<Classificacao> getClassificacaoById(Long id){ return repository.findById(id); }

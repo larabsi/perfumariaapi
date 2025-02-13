@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Service
 public class TamanhoService {
-    private TamanhoRepository repository;
+    private final TamanhoRepository repository;
 
     public TamanhoService(TamanhoRepository repository) {
         this.repository = repository;

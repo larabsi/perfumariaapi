@@ -12,7 +12,7 @@ import java.util.Optional;
 public class VendaService {
     private static VendaRepository repository;
 
-    public VendaService(VendaRepository vendaRepository) { this.repository = vendaRepository;}
+    public VendaService(VendaRepository vendaRepository) { repository = vendaRepository;}
     public List<Venda> getVendas(){ return repository.findAll();}
     public Optional<Venda> getVendaById(Long id){ return repository.findById(id); }
     public List<Venda> getVendasByCliente(Optional<Cliente> cliente) { return repository.findByCliente(cliente); }

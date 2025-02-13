@@ -18,7 +18,7 @@ public class FornecedorService {
     private static FornecedorRepository repository;
 
     public FornecedorService(FornecedorRepository fornecedorRepository) {
-        this.repository = fornecedorRepository;
+        repository = fornecedorRepository;
     }
 
     public List<Fornecedor> getFornecedores() {

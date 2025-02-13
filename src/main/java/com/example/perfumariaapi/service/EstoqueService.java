@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class EstoqueService {
 
-    private EstoqueRepository repository;
+    private final EstoqueRepository repository;
 
     public EstoqueService(EstoqueRepository estoqueRepository){this.repository = estoqueRepository;}
     public List<Estoque> getEstoque(){ return repository.findAll();}

@@ -20,7 +20,7 @@ public class ProdutoService {
     private static ProdutoRepository repository;
 
     public ProdutoService(ProdutoRepository repository) {
-        this.repository = repository;
+        ProdutoService.repository = repository;
     }
     public List<Produto> getProdutos() {
         return repository.findAll();

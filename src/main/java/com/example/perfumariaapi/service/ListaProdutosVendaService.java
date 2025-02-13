@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class ListaProdutosVendaService {
-    private ListaProdutosVendaRepository repository;
+    private final ListaProdutosVendaRepository repository;
 
     public ListaProdutosVendaService(ListaProdutosVendaRepository repository) {
         this.repository = repository;

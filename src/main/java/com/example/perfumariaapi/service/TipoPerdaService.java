@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class TipoPerdaService {
-    private TipoPerdaRepository repository;
+    private final TipoPerdaRepository repository;
 
     public TipoPerdaService(TipoPerdaRepository repository) {
         this.repository = repository;

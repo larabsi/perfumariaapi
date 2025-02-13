@@ -14,6 +14,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -30,8 +31,8 @@ public class SwaggerConfig {
                         .basePackage("com.example.perfumariaapi.api.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .securityContexts(Arrays.asList(securityContext()))
-                 .securitySchemes(Arrays.asList(apiKey()))
+                .securityContexts(Collections.singletonList(securityContext()))
+                 .securitySchemes(Collections.singletonList(apiKey()))
                 .apiInfo(apiInfo());
     }
 
